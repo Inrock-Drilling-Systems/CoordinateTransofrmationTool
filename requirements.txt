@@ -1,0 +1,6 @@
+streamlit
+pyproj
+pandas
+folium
+pytest
+simplekml
