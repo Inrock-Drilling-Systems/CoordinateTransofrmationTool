@@ -22,4 +22,3 @@ def generate_kmz(latitudes, longitudes, elevations, output_file="output.kmz"):
     # Save as KMZ
     kml.savekmz(output_file)
     return output_file
-
