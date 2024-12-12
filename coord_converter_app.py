@@ -80,8 +80,8 @@ with middle_column:
     if uploaded_file is not None:
         # Read CSV into a DataFrame
         data = pd.read_csv(uploaded_file)
-        # st.write("Uploaded Data:")
-        # st.write(data)
+        st.write("Uploaded Data:")
+        st.write(data)
 
         # Ensure required columns exist
         required_columns = ["Point", "Away", "Right", "Elevation", "Description"]
