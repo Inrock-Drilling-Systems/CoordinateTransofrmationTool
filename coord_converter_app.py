@@ -11,7 +11,7 @@ from src.generate_kmz import generate_kmz
 st.set_page_config(layout="wide")
 
 # Title
-st.title("3D Coordinate Transformation Tool")
+st.title("3D Coordinate Transformation Tool v0.1") # Update to control view release when testing
 
 # Layout: Divide the page into three columns
 left_column, middle_column, right_column = st.columns([1, 1, 1])  # Equal thirds
