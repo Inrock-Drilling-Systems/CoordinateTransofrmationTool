@@ -1,3 +1,14 @@
+## Ignore these directories in folder
+/.git/
+/.idea/
+/data/
+/outputs/
+/test/
+/venv/
+
+# Ignore this
+gitignore.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
