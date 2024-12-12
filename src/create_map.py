@@ -1,6 +1,6 @@
 import folium
 
-def create_map(latitudes, longitudes, elevations):
+def create_map(latitudes, longitudes, elevations, units="ft"):
     """
     Creates a folium map with points based on given latitudes, longitudes, and elevations.
 
@@ -8,13 +8,14 @@ def create_map(latitudes, longitudes, elevations):
         latitudes: Pandas Series of latitudes.
         longitudes: Pandas Series of longitudes.
         elevations: Pandas Series of elevations.
+        units: String (default = USft)
 
     Returns:
         A folium.Map object.
     """
     # Center the map and determine zoom based on bounds
-    bounds = [[longitudes.min(), latitudes.min()], [longitudes.max(), latitudes.max()]]
-    map_center = [longitudes.mean(), latitudes.mean()]
+    bounds = [[latitudes.min(), longitudes.min()], [latitudes.max(), longitudes.max()]]
+    map_center = [latitudes.mean(), longitudes.mean()]
     m = folium.Map(location=map_center, zoom_start=15)
 
     # Fit map to bounds
@@ -23,8 +24,8 @@ def create_map(latitudes, longitudes, elevations):
     # Add points to the map
     for lat, lon, elev in zip(latitudes, longitudes, elevations):
         folium.Marker(
-            [lon,lat],
-            popup=f"Elevation: {elev} m",
+            [lat,lon],
+            popup=f"Elevation: {elev} " + units,
             tooltip="Point"
         ).add_to(m)
 

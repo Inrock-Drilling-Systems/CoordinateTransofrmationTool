@@ -66,6 +66,6 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     )
 
     print("Latitude/Longitude Results:")
-    print(data[['Latitude', 'Longitude', 'Altitude']])
+    print(data[['Latitude','Longitude', 'Altitude']])
 
     return data
