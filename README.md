@@ -20,13 +20,13 @@ The Inrock Coordinate Converter is a tool designed to transform coordinates from
 To run locally, access directory from Command Prompt in the local app directory and run:
 
 ```
-> pip install -r requirements.txt
+...> pip install -r requirements.txt
 
 .
 .
 .
 
-> streamlit run coord_converter_app.py
+...> streamlit run coord_converter_app.py
 ```
 Browser will open to ```localhost:8501``` where you can directly test any configuration changes in real-time.
 
