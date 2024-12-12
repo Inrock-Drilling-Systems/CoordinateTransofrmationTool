@@ -1,17 +1,18 @@
 import streamlit as st
 import pandas as pd
 from src.transformations import transform_coordinates
+from src.remove_and_reformat import process_survey_csv
 from src.create_map import create_map
 from src.constants import STATE_PLANE_EPSG_CODES
 from streamlit.components.v1 import html
-import simplekml
 from src.generate_kmz import generate_kmz
+from src.pretty_dataframe import correct_output
 
 # Open Streamlit in Wide Mode
 st.set_page_config(layout="wide")
 
 # Title
-st.title("3D Coordinate Transformation Tool")
+st.title("3D Coordinate Transformation Tool v0.2")
 
 # Layout: Divide the page into three columns
 left_column, middle_column, right_column = st.columns([1, 1, 1])  # Equal thirds
@@ -78,10 +79,10 @@ with middle_column:
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
     if uploaded_file is not None:
-        # Read CSV into a DataFrame
-        data = pd.read_csv(uploaded_file)
-        st.write("Uploaded Data:")
-        st.write(data)
+        # Read CSV into a DataFrame & Extract required information
+        data = process_survey_csv(uploaded_file)
+        # st.write("Uploaded Data:")
+        # st.write(data)
 
         # Ensure required columns exist
         required_columns = ["Point", "Away", "Right", "Elevation", "Description"]
@@ -115,8 +116,8 @@ with middle_column:
                 ignore_index=True
             )
 
-            st.write("Refactored Data:")
-            st.write(refactored_data)
+            # st.write("Refactored Data:")
+            # st.write(refactored_data)
 
             # Transform coordinates
             tie1_local = [float(local_entry_away), float(local_entry_right), float(local_entry_elevation)]
@@ -126,6 +127,7 @@ with middle_column:
 
             try:
                 refactored_data = transform_coordinates(refactored_data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_epsg)
+                refactored_data = correct_output(refactored_data)
                 st.write("Transformed Coordinates:")
                 st.write(refactored_data)
 
@@ -136,6 +138,8 @@ with middle_column:
                 st.error(f"Error in transformation: {ve}")
             except Exception as e:
                 st.error(f"Unexpected error: {e}")
+
+
 
 # Right column: Map visualization
 with right_column:
