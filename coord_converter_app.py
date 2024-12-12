@@ -81,8 +81,6 @@ with middle_column:
     if uploaded_file is not None:
         # Read CSV into a DataFrame & Extract required information
         data = process_survey_csv(uploaded_file)
-        # st.write("Uploaded Data:")
-        # st.write(data)
 
         # Ensure required columns exist
         required_columns = ["Point", "Away", "Right", "Elevation", "Description"]

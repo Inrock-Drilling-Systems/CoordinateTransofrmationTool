@@ -17,13 +17,32 @@ def process_survey_csv(file_input):
     else:
         raw_text = file_input.read().decode('utf-8').splitlines()
 
+    # Debugging: Print lines containing any keyword
+    header_keywords = ['Joint', 'MD', 'Incl', 'Az', 'Away', 'Elev', 'Right']
+    matching_lines = [
+        (i, line) for i, line in enumerate(raw_text)
+        if any(keyword in line for keyword in header_keywords)
+    ]
+
+    print("Matching Lines for Debugging:")
+    for idx, content in matching_lines:
+        print(f"Line {idx}: {content}")
+
     # Locate the header and extract table rows
-    header_index = next(i for i, line in enumerate(raw_text) if 'Joint,MD,Incl,Az,Away,Elev,Right' in line)
+    try:
+        header_index = next(
+            i for i, line in enumerate(raw_text)
+            if all(keyword in line for keyword in header_keywords)
+        )
+    except StopIteration:
+        raise ValueError(
+            f"Header containing key terms {header_keywords} not found in the file."
+        )
     table_data = raw_text[header_index:]
 
     # Split the header and data into separate components
-    header = table_data[0].strip().split(',')
-    data_rows = [row.strip().split(',') for row in table_data[1:]]
+    header = table_data[0].strip().strip(',').split(',')  # Remove trailing commas and split
+    data_rows = [row.strip().strip(',').split(',') for row in table_data[1:]]
 
     # Create a DataFrame from the extracted data
     df = pd.DataFrame(data_rows, columns=header)
