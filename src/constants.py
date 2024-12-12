@@ -171,6 +171,7 @@ STATE_PLANE_EPSG_CODES = {
     "Texas North (US Feet)": "32135",
     "Texas Central (US Feet)": "32136",
     "Texas South (US Feet)": "32137",
+    "Texas South Central (USft)": "32140",
 
     # Utah
     "Utah North (US Feet)": "32138",
