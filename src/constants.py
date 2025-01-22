@@ -129,7 +129,7 @@ STATE_PLANE_EPSG_CODES = {
     "New York East (US Feet)": "32115",
     "New York Central (US Feet)": "32116",
     "New York West (US Feet)": "32117",
-    "New York Long Island (US Feet)": "3104",
+    "New York Long Island (US Feet)": "32118",
 
     # North Carolina
     "North Carolina (US Feet)": "32119",
