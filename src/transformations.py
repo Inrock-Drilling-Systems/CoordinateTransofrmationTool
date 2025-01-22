@@ -28,44 +28,49 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     T_y = tie1_state[1] - tie1_local[1]
     T_z = tie1_state[2] - tie1_local[2]
 
-    print(f"Translation Vector: T_x={T_x}, T_y={T_y}, T_z={T_z}")
-
     data['Translated_X'] = data['Away'] + T_x
-    data['Translated_Y'] = data['Right'] + T_y
+    data['Translated_Y'] = -data['Right'] + T_y
     data['Translated_Z'] = data['Elevation'] + T_z
 
     # Step 2: Calculate Rotation Angle
     delta_x = tie2_state[0] - tie1_state[0]
     delta_y = tie2_state[1] - tie1_state[1]
     theta = np.arctan2(delta_y, delta_x)  # Azimuth angle in radians
-    print(f"Azimuth Angle (theta): {np.degrees(theta)} degrees")
 
-    # Step 3: Apply Rotation About Tie-In Entry
-    # Subtract Tie-In Entry (center of rotation), rotate, then add Tie-In Entry back
+    # Rotate Points
     translated_x = data['Translated_X'] - tie1_state[0]
     translated_y = data['Translated_Y'] - tie1_state[1]
 
     cos_theta = np.cos(theta)
     sin_theta = np.sin(theta)
 
-    data['Rotated_X'] = (
-        cos_theta * translated_x - sin_theta * translated_y + tie1_state[0]
-    )
-    data['Rotated_Y'] = (
-        sin_theta * translated_x + cos_theta * translated_y + tie1_state[1]
-    )
-    data['Rotated_Z'] = data['Translated_Z']  # Z remains unchanged
+    data['Rotated_X'] = cos_theta * translated_x - sin_theta * translated_y + tie1_state[0]
+    data['Rotated_Y'] = sin_theta * translated_x + cos_theta * translated_y + tie1_state[1]
+    data['Rotated_Z'] = data['Translated_Z']
 
+    # Debug: Verify rotation step
+    if 'Rotated_X' not in data.columns or 'Rotated_Y' not in data.columns:
+        raise ValueError("Rotation failed. Missing 'Rotated_X' or 'Rotated_Y'.")
     print("Rotated Coordinates:")
     print(data[['Rotated_X', 'Rotated_Y', 'Rotated_Z']])
 
-    # Step 4: Convert State Plane to Latitude/Longitude
+    # Step 3: Transform to Latitude/Longitude
     transformer_to_latlon = Transformer.from_crs(f"EPSG:{state_plane_epsg}", "EPSG:4326", always_xy=True)
     data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
         data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
     )
 
-    print("Latitude/Longitude Results:")
-    print(data[['Latitude','Longitude', 'Altitude']])
+    # Debug: Verify final coordinates
+    print("Final Latitude/Longitude:")
+    print(data[['Latitude', 'Longitude', 'Altitude']])
+
+    # # Step 5: Convert State Plane to Latitude/Longitude
+    # transformer_to_latlon = Transformer.from_crs(f"EPSG:{state_plane_epsg}", "EPSG:4326", always_xy=True)
+    # data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
+    #     data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
+    # )
+    #
+    # print("Latitude/Longitude Results:")
+    # print(data[['Latitude','Longitude', 'Altitude']])
 
     return data
