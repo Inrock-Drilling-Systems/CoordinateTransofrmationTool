@@ -3,7 +3,6 @@ STATE_PLANE_EPSG_CODES = {
     # Alabama
     "Alabama East (US Feet)": "26729",
     "Alabama West (US Feet)": "26730",
-    "Cock & Balls": "69696",
 
     # Alaska
     # All meters are removed to new dictionary
