@@ -207,10 +207,7 @@ STATE_PLANE_EPSG_CODES = {
     # Territories (US Feet)
     "Puerto Rico (US Feet)": "32155",
     "Guam (US Feet)": "32156",
-}
 
-# New dictionary containing only meters-based EPSG codes
-STATE_PLANE_EPSG_CODES_METRIC = {
     # Alabama
     "Alabama East (Meters)": "26929",
     "Alabama West (Meters)": "26930",
