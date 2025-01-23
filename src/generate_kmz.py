@@ -1,5 +1,4 @@
 import simplekml
-from resources import
 
 def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="output.kmz"):
     """
