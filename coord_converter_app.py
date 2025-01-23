@@ -16,9 +16,7 @@ st.set_page_config(layout="wide")
 st.title("3D Coordinate Transformation Tool v0.2")
 
 # Layout: Divide the page into three columns
-left_column, middle_column, right_column = st.columns([1, 1, 1])  # Equal thirds
-
-
+left_column, middle_column, right_column = st.columns([1, 1, 1])
 
 # Left column: Tie-in points
 with left_column:
@@ -36,12 +34,11 @@ with left_column:
     with col2:
         local_entry_right = st.text_input("Right", "0.00", key="local_entry_right")
     with col3:
-        if 'local_entry_elevation' not in st.session_state:
-            st.session_state.local_entry_elevation = "0.00"
-        local_entry_elevation = st.text_input("Elevation", st.session_state.local_entry_elevation, key="local_entry_elevation")
-        if local_entry_elevation != st.session_state.local_entry_elevation and link_elevations:
-            st.session_state.tie_in_entry_elevation = local_entry_elevation
-            st.session_state.local_entry_elevation = local_entry_elevation
+        local_entry_elevation = st.text_input("Elevation", "0.00", key="local_entry_elevation")
+        if link_elevations:
+            tie_in_entry_elevation = local_entry_elevation
+        else:
+            tie_in_entry_elevation = st.session_state.get('tie_in_entry_elevation', "0.00")
 
     # Tie-In Entry
     st.subheader("Tie-In Entry (State Plane Coordinates)")
@@ -51,12 +48,13 @@ with left_column:
     with col2:
         tie_in_entry_northing = st.text_input("Northing", "13874745.74", key="tie_in_entry_right")
     with col3:
-        if 'tie_in_entry_elevation' not in st.session_state:
-            st.session_state.tie_in_entry_elevation = local_entry_elevation if link_elevations else "0.00"
-        tie_in_entry_elevation = st.text_input("Elevation",
-                                             value=st.session_state.tie_in_entry_elevation,
-                                             key="tie_in_entry_elevation",
-                                             disabled=link_elevations)
+        if link_elevations:
+            tie_in_entry_elevation = st.text_input("Elevation", tie_in_entry_elevation,
+                                                   key="tie_in_entry_elevation",
+                                                   disabled=True)
+        else:
+            tie_in_entry_elevation = st.text_input("Elevation", tie_in_entry_elevation,
+                                                   key="tie_in_entry_elevation")
 
     # Local Exit
     st.subheader("Local Exit (Local Coordinates)")
@@ -66,12 +64,11 @@ with left_column:
     with col2:
         local_exit_right = st.text_input("Right", "0.00", key="local_exit_right")
     with col3:
-        if 'local_exit_elevation' not in st.session_state:
-            st.session_state.local_exit_elevation = "0.00"
-        local_exit_elevation = st.text_input("Elevation", st.session_state.local_exit_elevation, key="local_exit_elevation")
-        if local_exit_elevation != st.session_state.local_exit_elevation and link_elevations:
-            st.session_state.tie_in_exit_elevation = local_exit_elevation
-            st.session_state.local_exit_elevation = local_exit_elevation
+        local_exit_elevation = st.text_input("Elevation", "0.00", key="local_exit_elevation")
+        if link_elevations:
+            tie_in_exit_elevation = local_exit_elevation
+        else:
+            tie_in_exit_elevation = st.session_state.get('tie_in_exit_elevation', "0.00")
 
     # Tie-In Exit
     st.subheader("Tie-In Exit (State Plane Coordinates)")
@@ -81,12 +78,13 @@ with left_column:
     with col2:
         tie_in_exit_northing = st.text_input("Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
-        if 'tie_in_exit_elevation' not in st.session_state:
-            st.session_state.tie_in_exit_elevation = local_exit_elevation if link_elevations else "0.00"
-        tie_in_exit_elevation = st.text_input("Elevation",
-                                            value=st.session_state.tie_in_exit_elevation,
-                                            key="tie_in_exit_elevation",
-                                            disabled=link_elevations)
+        if link_elevations:
+            tie_in_exit_elevation = st.text_input("Elevation", tie_in_exit_elevation,
+                                                  key="tie_in_exit_elevation",
+                                                  disabled=True)
+        else:
+            tie_in_exit_elevation = st.text_input("Elevation", tie_in_exit_elevation,
+                                                  key="tie_in_exit_elevation")
 
     # Calculate and display horizontal spans
     st.subheader("Horizontal Spans")
