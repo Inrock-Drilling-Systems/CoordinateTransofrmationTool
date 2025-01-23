@@ -147,9 +147,9 @@ with right_column:
         try:
             # Generate the map using the create_map function
             folium_map = create_map(
-                refactored_data['Latitude'],
-                refactored_data['Longitude'],
-                refactored_data['Altitude']
+                refactored_data['Latitude'][2:],
+                refactored_data['Longitude'][2:],
+                refactored_data['Altitude'][2:]
             )
 
             # Render the map as HTML
@@ -162,7 +162,7 @@ with right_column:
 
     # Generate the KMZ file
     if st.button("Generate KMZ File"):
-        kmz_path = generate_kmz(refactored_data['Longitude'], refactored_data['Latitude'], refactored_data['Elevation'], refactored_data['Description'])
+        kmz_path = generate_kmz(refactored_data['Longitude'][2:], refactored_data['Latitude'][2:], refactored_data['Elevation'][2:], refactored_data['Description'][2:])
         with open(kmz_path, "rb") as file:
             st.download_button(
                 label="Download KMZ",
