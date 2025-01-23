@@ -1,4 +1,5 @@
 import simplekml
+from resources import
 
 def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="output.kmz"):
     """
@@ -15,7 +16,7 @@ def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="o
         Path to the generated KMZ file.
     """
     kml = simplekml.Kml()
-    icon_url = "https://maps.google.com/mapfiles/kml/paddle/ylw-blank.png"
+    icon_url = "../resources/bullseye.png"
 
     # # Iterate over the data to create placemarks
     # for lat, lon, elev, desc in zip(latitudes, longitudes, elevations, descriptions):
@@ -25,7 +26,7 @@ def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="o
 
     # Add points to the KML file
     for lat, lon, elev, desc in zip(latitudes, longitudes, elevations, descriptions):
-        pnt = kml.newpoint(name="Point",description=desc, coords=[(lat, lon, elev)])  # (longitude, latitude, elevation, descriptions)
+        pnt = kml.newpoint(name="",description=desc, coords=[(lat, lon, elev)])  # (longitude, latitude, elevation, descriptions)
         pnt.style.iconstyle.icon.href = icon_url
         pnt.style.iconstyle.scale = 1.5
 
