@@ -66,8 +66,9 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     # print("Final Latitude/Longitude:")
     # print(data[['Latitude', 'Longitude', 'Altitude']])
 
-    M to ft
+    # m to ft constant
     k = 0.3048
+
     # Step 3: Convert State Plane to Latitude/Longitude
     transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
     data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
