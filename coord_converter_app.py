@@ -13,7 +13,8 @@ from src.pretty_dataframe import correct_output
 st.set_page_config(layout="wide")
 
 # Title
-st.title("3D Coordinate Transformation Tool v0.2")
+st.title("3D Coordinate Transformation Tool v0.3")
+st.subheader("Release: Jan 23, 2025")
 
 # Layout: Divide the page into three columns
 left_column, middle_column, right_column = st.columns([1, 1, 1])
