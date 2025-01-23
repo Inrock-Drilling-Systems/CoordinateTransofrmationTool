@@ -56,23 +56,23 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print("Rotated Coordinates:")
     print(data[['Rotated_X', 'Rotated_Y', 'Rotated_Z']])
 
-    # Step 3: Transform to Latitude/Longitude
-    transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
-    data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
-        data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
-    )
-
-    # Debug: Verify final coordinates
-    print("Final Latitude/Longitude:")
-    print(data[['Latitude', 'Longitude', 'Altitude']])
-
-    # # Step 5: Convert State Plane to Latitude/Longitude
-    # transformer_to_latlon = Transformer.from_crs(f"EPSG:{state_plane_epsg}", "EPSG:4326", always_xy=True)
+    # # Step 3: Transform to Latitude/Longitude
+    # transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
     # data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
     #     data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
     # )
     #
-    # print("Latitude/Longitude Results:")
-    # print(data[['Latitude','Longitude', 'Altitude']])
+    # # Debug: Verify final coordinates
+    # print("Final Latitude/Longitude:")
+    # print(data[['Latitude', 'Longitude', 'Altitude']])
+
+    # Step 3: Convert State Plane to Latitude/Longitude
+    transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
+    data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
+        data['Rotated_Y'], data['Rotated_X'], data['Rotated_Z']
+    )
+
+    print("Latitude/Longitude Results:")
+    print(data[['Latitude','Longitude', 'Altitude']])
 
     return data
