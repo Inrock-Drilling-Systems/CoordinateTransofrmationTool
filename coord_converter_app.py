@@ -162,7 +162,7 @@ with right_column:
 
     # Generate the KMZ file
     if st.button("Generate KMZ File"):
-        kmz_path = generate_kmz(refactored_data['Longitude'], refactored_data['Latitude'], refactored_data['Elevation'])
+        kmz_path = generate_kmz(refactored_data['Longitude'], refactored_data['Latitude'], refactored_data['Elevation'], refactored_data['Description'])
         with open(kmz_path, "rb") as file:
             st.download_button(
                 label="Download KMZ",

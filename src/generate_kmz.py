@@ -1,6 +1,6 @@
 import simplekml
 
-def generate_kmz(latitudes, longitudes, elevations, output_file="output.kmz"):
+def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="output.kmz"):
     """
     Generates a KMZ file from latitude, longitude, and elevation data.
 
@@ -8,6 +8,7 @@ def generate_kmz(latitudes, longitudes, elevations, output_file="output.kmz"):
         latitudes: List or Pandas Series of latitude values.
         longitudes: List or Pandas Series of longitude values.
         elevations: List or Pandas Series of elevation values.
+        descriptions: List or Pandas Series of descriptions values
         output_file: Name of the output KMZ file.
 
     Returns:
@@ -15,9 +16,15 @@ def generate_kmz(latitudes, longitudes, elevations, output_file="output.kmz"):
     """
     kml = simplekml.Kml()
 
-    # Add points to the KML file
-    for lat, lon, elev in zip(latitudes, longitudes, elevations):
-        kml.newpoint(name="Point", coords=[(lat, lon, elev)])  # (longitude, latitude, elevation)
+    # Iterate over the data to create placemarks
+    for name, descriptions, lat, lon, icon_url in zip(latitudes, longitudes, elevations, descriptions):
+        pnt = kml.newpoint(name=name, description=descriptions, coords=[(lon, lat)])
+        pnt.style.iconstyle.icon.href = icon_url
+        pnt.style.iconstyle.scale = 1.5  # Adjust the scale of the icon as needed
+
+    # # Add points to the KML file
+    # for lat, lon, elev in zip(latitudes, longitudes, elevations):
+    #     kml.newpoint(name="Point", coords=[(lat, lon, elev)])  # (longitude, latitude, elevation)
 
     # Save as KMZ
     kml.savekmz(output_file)
