@@ -348,7 +348,7 @@ spcs83_to_epsg = {
     "2800": 32110,  # New Hampshire
 
     # New Jersey
-    "2900": 32111,  # New Jersey
+    "2900": 3424,  # New Jersey
 
     # New Mexico
     "3001": 32112,  # New Mexico East
