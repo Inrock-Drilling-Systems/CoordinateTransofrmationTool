@@ -56,38 +56,29 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print("State Plane Coordinates (before transformation):")
     print(data[['Easting', 'Northing', 'Elevation_TR']].head())
 
-    # Step 3: Transform to Latitude/Longitude
-    # Define CRS objects with explicit axis order
-    state_plane = CRS.from_epsg(EPSG_Code)
-    wgs84 = CRS.from_epsg(4326)
-
-    # Create transformer with explicit direction
+    # Step 3: Transform to Latitude/Longitude using pipeline approach
     transformer_to_latlon = Transformer.from_crs(
-        state_plane,
-        wgs84,
-        always_xy=True  # Keep True to maintain E/N -> Long/Lat order
-    )
+        f"EPSG:{EPSG_Code}",
+        "EPSG:4326",
+        always_xy=True
+    ).transform
 
-    # Transform coordinates (Easting/Northing -> Long/Lat)
-    try:
-        longs, lats, alts = transformer_to_latlon.transform(
-            data['Easting'],  # Easting for longitude
-            data['Northing'],  # Northing for latitude
+    # Transform each point individually to maintain correct order
+    lat_long_results = [
+        transformer_to_latlon(easting, northing, elev)
+        for easting, northing, elev in zip(
+            data['Easting'],
+            data['Northing'],
             data['Elevation_TR']
         )
+    ]
 
-        # Assign transformed coordinates
-        data['Longitude'] = longs
-        data['Latitude'] = lats
-        data['Altitude'] = alts
+    # Unpack results
+    data['Longitude'], data['Latitude'], data['Altitude'] = zip(*lat_long_results)
 
-        print("\nTransformation successful!")
-        print("Coordinate sample after transformation:")
-        print(data[['Latitude', 'Longitude', 'Altitude']].head())
-
-    except Exception as e:
-        print(f"Error during transformation: {e}")
-        raise
+    print("\nTransformation complete!")
+    print("Sample of transformed coordinates:")
+    print(data[['Easting', 'Northing', 'Latitude', 'Longitude']].head())
 
     # Clean up intermediate calculation columns
     data = data.drop(['Translated_X', 'Translated_Y', 'Translated_Z'], axis=1, errors='ignore')
