@@ -46,9 +46,9 @@ with left_column:
     st.subheader("Tie-In Entry (State Plane Coordinates)")
     col1, col2, col3 = st.columns(3)
     with col1:
-        tie_in_entry_away = st.text_input("Away/Easting", "3055956.05", key="tie_in_entry_away")
+        tie_in_entry_easting = st.text_input("Easting", "3055956.05", key="tie_in_entry_away")
     with col2:
-        tie_in_entry_right = st.text_input("Right/Northing", "13874745.74", key="tie_in_entry_right")
+        tie_in_entry_northing = st.text_input("Right/Northing", "13874745.74", key="tie_in_entry_right")
     with col3:
         tie_in_entry_elevation = st.text_input("Elevation", "0.00", key="tie_in_entry_elevation")
 
@@ -120,7 +120,7 @@ with middle_column:
             # Transform coordinates
             tie1_local = [float(local_entry_away), float(local_entry_right), float(local_entry_elevation)]
             tie2_local = [float(local_exit_away), float(local_exit_right), float(local_exit_elevation)]
-            tie1_state = [float(tie_in_entry_away), float(tie_in_entry_right), float(tie_in_entry_elevation)]
+            tie1_state = [float(tie_in_entry_easting), float(tie_in_entry_northing), float(tie_in_entry_elevation)]
             tie2_state = [float(tie_in_exit_away), float(tie_in_exit_right), float(tie_in_exit_elevation)]
 
             try:
