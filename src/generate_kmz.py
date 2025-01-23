@@ -25,7 +25,9 @@ def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="o
 
     # Add points to the KML file
     for lat, lon, elev, desc in zip(latitudes, longitudes, elevations, descriptions):
-        kml.newpoint(name="Point",description=desc, coords=[(lat, lon, elev)])  # (longitude, latitude, elevation, descriptions)
+        pnt = kml.newpoint(name="Point",description=desc, coords=[(lat, lon, elev)])  # (longitude, latitude, elevation, descriptions)
+        pnt.style.iconstyle.icon.href = icon_url
+        pnt.style.iconstyle.scale = 1.5
 
     # Save as KMZ
     kml.savekmz(output_file)
