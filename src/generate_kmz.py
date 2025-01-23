@@ -15,7 +15,7 @@ def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="o
         Path to the generated KMZ file.
     """
     kml = simplekml.Kml()
-    icon_url = "../resources/bullseye.png"
+    icon_url = "https://maps.google.com/mapfiles/kml/pal3/icon47.png"
 
     # # Iterate over the data to create placemarks
     # for lat, lon, elev, desc in zip(latitudes, longitudes, elevations, descriptions):
