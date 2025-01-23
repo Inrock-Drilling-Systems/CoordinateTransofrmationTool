@@ -66,9 +66,9 @@ with left_column:
     st.subheader("Tie-In Exit (State Plane Coordinates)")
     col1, col2, col3 = st.columns(3)
     with col1:
-        tie_in_exit_away = st.text_input("Away/Easting", "3102522.92", key="tie_in_exit_away")
+        tie_in_exit_easting = st.text_input("Easting", "3102522.92", key="tie_in_exit_away")
     with col2:
-        tie_in_exit_right = st.text_input("Right/Northing", "13761445.36", key="tie_in_exit_right")
+        tie_in_exit_northing = st.text_input("Right/Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
         tie_in_exit_elevation = st.text_input("Elevation", "0.00", key="tie_in_exit_elevation")
 
@@ -121,7 +121,7 @@ with middle_column:
             tie1_local = [float(local_entry_away), float(local_entry_right), float(local_entry_elevation)]
             tie2_local = [float(local_exit_away), float(local_exit_right), float(local_exit_elevation)]
             tie1_state = [float(tie_in_entry_easting), float(tie_in_entry_northing), float(tie_in_entry_elevation)]
-            tie2_state = [float(tie_in_exit_away), float(tie_in_exit_right), float(tie_in_exit_elevation)]
+            tie2_state = [float(tie_in_exit_easting), float(tie_in_exit_northing), float(tie_in_exit_elevation)]
 
             try:
                 refactored_data = transform_coordinates(refactored_data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_fips)
