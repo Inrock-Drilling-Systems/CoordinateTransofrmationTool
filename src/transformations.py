@@ -58,21 +58,21 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print(data[['Easting', 'Northing', 'Elevation_TR']])
 
     # Step 3: Transform to Latitude/Longitude
-    # Create CRS objects for more explicit control
+    # Define CRS objects
     state_plane = CRS.from_epsg(EPSG_Code)
     wgs84 = CRS.from_epsg(4326)
 
-    # Create transformer with explicit direction
+    # Create transformer with explicit direction and axis order
     transformer_to_latlon = Transformer.from_crs(
         state_plane,
         wgs84,
-        always_xy=True
+        always_xy=False  # Changed to False to handle lat/long order correctly
     )
 
     # Transform coordinates
-    longs, lats, alts = transformer_to_latlon.transform(
-        data['Easting'],
-        data['Northing'],
+    lats, longs, alts = transformer_to_latlon.transform(
+        data['Northing'],  # Switch to Northing first for lat/long output
+        data['Easting'],  # Easting second
         data['Elevation_TR']
     )
 
