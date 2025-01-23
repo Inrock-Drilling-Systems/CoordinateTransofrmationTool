@@ -68,7 +68,7 @@ with left_column:
     with col1:
         tie_in_exit_easting = st.text_input("Easting", "3102522.92", key="tie_in_exit_away")
     with col2:
-        tie_in_exit_northing = st.text_input("Right/Northing", "13761445.36", key="tie_in_exit_right")
+        tie_in_exit_northing = st.text_input("Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
         tie_in_exit_elevation = st.text_input("Elevation", "0.00", key="tie_in_exit_elevation")
 
