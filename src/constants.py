@@ -1,213 +1,226 @@
 # Original dictionary with only US Feet EPSG codes
 STATE_PLANE_EPSG_CODES = {
     # Alabama
-    "Alabama East (US Feet)": "26729",
-    "Alabama West (US Feet)": "26730",
+    "Alabama East (US Feet)": "0101",
+    "Alabama West (US Feet)": "0102",
 
     # Alaska
     # All meters are removed to new dictionary
+    "Alaska Zone 1 (US Feet)": "5001",
+    "Alaska Zone 2 (US Feet)": "5002",
+    "Alaska Zone 3 (US Feet)": "5003",
+    "Alaska Zone 4 (US Feet)": "5004",
+    "Alaska Zone 5 (US Feet)": "5005",
+    "Alaska Zone 6 (US Feet)": "5006",
+    "Alaska Zone 7 (US Feet)": "5007",
+    "Alaska Zone 8 (US Feet)": "5008",
+    "Alaska Zone 9 (US Feet)": "5009",
+    "Alaska Zone 10 (US Feet)": "5010",
 
     # Arizona
-    "Arizona Central (US Feet)": "2223",
-    "Arizona East (US Feet)": "2222",
-    "Arizona West (US Feet)": "2224",
+    "Arizona Central (US Feet)": "0202",
+    "Arizona East (US Feet)": "0201",
+    "Arizona West (US Feet)": "0203",
 
     # Arkansas
-    "Arkansas North (US Feet)": "26751",
-    "Arkansas South (US Feet)": "26752",
+    "Arkansas North (US Feet)": "0301",
+    "Arkansas South (US Feet)": "0302",
 
     # California
-    "California Zone 1 (US Feet)": "26741",
-    "California Zone 2 (US Feet)": "26742",
-    "California Zone 3 (US Feet)": "26743",
-    "California Zone 4 (US Feet)": "26744",
-    "California Zone 5 (US Feet)": "26745",
-    "California Zone 6 (US Feet)": "26746",
+    "California Zone 1 (US Feet)": "0401",
+    "California Zone 2 (US Feet)": "0402",
+    "California Zone 3 (US Feet)": "0403",
+    "California Zone 4 (US Feet)": "0404",
+    "California Zone 5 (US Feet)": "0405",
+    "California Zone 6 (US Feet)": "0406",
 
     # Colorado
-    "Colorado Central (US Feet)": "26754",
-    "Colorado North (US Feet)": "26753",
-    "Colorado South (US Feet)": "26755",
+    "Colorado Central (US Feet)": "0502",
+    "Colorado North (US Feet)": "0501",
+    "Colorado South (US Feet)": "0503",
 
     # Connecticut
-    "Connecticut (US Feet)": "26756",
+    "Connecticut (US Feet)": "0600",
 
     # Delaware
-    "Delaware (US Feet)": "26757",
+    "Delaware (US Feet)": "0700",
 
     # Florida
-    "Florida East (US Feet)": "2236",
-    "Florida West (US Feet)": "2237",
-    "Florida North (US Feet)": "2238",
+    "Florida East (US Feet)": "0901",
+    "Florida West (US Feet)": "0902",
+    "Florida North (US Feet)": "0903",
 
     # Georgia
-    "Georgia East (US Feet)": "26766",
-    "Georgia West (US Feet)": "26767",
+    "Georgia East (US Feet)": "1001",
+    "Georgia West (US Feet)": "1002",
 
     # Idaho
-    "Idaho Central (US Feet)": "26769",
-    "Idaho East (US Feet)": "26768",
-    "Idaho West (US Feet)": "26770",
+    "Idaho Central (US Feet)": "1101",
+    "Idaho East (US Feet)": "1102",
+    "Idaho West (US Feet)": "1103",
 
     # Illinois
-    "Illinois East (US Feet)": "3435",
-    "Illinois West (US Feet)": "3436",
+    "Illinois East (US Feet)": "1201",
+    "Illinois West (US Feet)": "1202",
 
     # Indiana
-    "Indiana East (US Feet)": "26773",
-    "Indiana West (US Feet)": "26774",
+    "Indiana East (US Feet)": "1301",
+    "Indiana West (US Feet)": "1302",
 
     # Iowa
-    "Iowa North (US Feet)": "26775",
-    "Iowa South (US Feet)": "26776",
+    "Iowa North (US Feet)": "1401",
+    "Iowa South (US Feet)": "1402",
 
     # Kansas
-    "Kansas North (US Feet)": "26777",
-    "Kansas South (US Feet)": "26778",
+    "Kansas North (US Feet)": "1501",
+    "Kansas South (US Feet)": "1502",
 
     # Kentucky
-    "Kentucky North (US Feet)": "2201",
-    "Kentucky South (US Feet)": "2202",
+    "Kentucky North (US Feet)": "1601",
+    "Kentucky South (US Feet)": "1602",
 
     # Louisiana
-    "Louisiana North (US Feet)": "26781",
-    "Louisiana South (US Feet)": "26782",
+    "Louisiana North (US Feet)": "1701",
+    "Louisiana South (US Feet)": "1702",
 
     # Maine
-    "Maine East (US Feet)": "26783",
-    "Maine West (US Feet)": "26784",
+    "Maine East (US Feet)": "1801",
+    "Maine West (US Feet)": "1802",
 
     # Maryland
-    "Maryland (US Feet)": "2248",
+    "Maryland (US Feet)": "1900",
 
     # Massachusetts
-    "Massachusetts Mainland (US Feet)": "26786",
-    "Massachusetts Island (US Feet)": "26787",
+    "Massachusetts Mainland (US Feet)": "2001",
+    "Massachusetts Island (US Feet)": "2002",
 
     # Michigan
-    "Michigan Central (US Feet)": "26842",
-    "Michigan North (US Feet)": "26811",
-    "Michigan South (US Feet)": "26813",
+    "Michigan Central (US Feet)": "2112",
+    "Michigan North (US Feet)": "2111",
+    "Michigan South (US Feet)": "2113",
 
     # Minnesota
-    "Minnesota Central (US Feet)": "26792",
-    "Minnesota North (US Feet)": "26791",
-    "Minnesota South (US Feet)": "26793",
+    "Minnesota Central (US Feet)": "2202",
+    "Minnesota North (US Feet)": "2201",
+    "Minnesota South (US Feet)": "2203",
 
     # Mississippi
-    "Mississippi East (US Feet)": "26794",
-    "Mississippi West (US Feet)": "26795",
+    "Mississippi East (US Feet)": "2301",
+    "Mississippi West (US Feet)": "2302",
 
     # Missouri
-    "Missouri East (US Feet)": "26796",
-    "Missouri Central (US Feet)": "26797",
-    "Missouri West (US Feet)": "26798",
+    "Missouri East (US Feet)": "2401",
+    "Missouri Central (US Feet)": "2402",
+    "Missouri West (US Feet)": "2403",
 
     # Montana
-    "Montana (US Feet)": "32100",
+    "Montana (US Feet)": "2500",
 
     # Nebraska
-    "Nebraska (US Feet)": "32104",
+    "Nebraska (US Feet)": "2600",
 
     # Nevada
-    "Nevada East (US Feet)": "32107",
-    "Nevada Central (US Feet)": "32108",
-    "Nevada West (US Feet)": "32109",
+    "Nevada East (US Feet)": "2701",
+    "Nevada Central (US Feet)": "2702",
+    "Nevada West (US Feet)": "2703",
 
     # New Hampshire
-    "New Hampshire (US Feet)": "32110",
+    "New Hampshire (US Feet)": "2800",
 
     # New Jersey
-    "New Jersey (US Feet)": "32111",
+    "New Jersey (US Feet)": "2900",
 
     # New Mexico
-    "New Mexico East (US Feet)": "32112",
-    "New Mexico Central (US Feet)": "32113",
-    "New Mexico West (US Feet)": "32114",
+    "New Mexico East (US Feet)": "3001",
+    "New Mexico Central (US Feet)": "3002",
+    "New Mexico West (US Feet)": "3003",
 
     # New York
-    "New York East (US Feet)": "32115",
-    "New York Central (US Feet)": "32116",
-    "New York West (US Feet)": "32117",
-    "New York Long Island (US Feet)": "2263",
+    "New York East (US Feet)": "3101",
+    "New York Central (US Feet)": "3102",
+    "New York West (US Feet)": "3103",
+    "New York Long Island (US Feet)": "3104",
 
     # North Carolina
-    "North Carolina (US Feet)": "32119",
+    "North Carolina (US Feet)": "3200",
 
     # North Dakota
-    "North Dakota North (US Feet)": "32120",
-    "North Dakota South (US Feet)": "32121",
+    "North Dakota North (US Feet)": "3301",
+    "North Dakota South (US Feet)": "3302",
 
     # Ohio
-    "Ohio North (US Feet)": "32122",
-    "Ohio South (US Feet)": "32123",
+    "Ohio North (US Feet)": "3401",
+    "Ohio South (US Feet)": "3402",
 
     # Oklahoma
-    "Oklahoma North (US Feet)": "32124",
-    "Oklahoma South (US Feet)": "32125",
+    "Oklahoma North (US Feet)": "3501",
+    "Oklahoma South (US Feet)": "3502",
 
     # Oregon
-    "Oregon North (US Feet)": "32126",
-    "Oregon South (US Feet)": "32127",
+    "Oregon North (US Feet)": "3601",
+    "Oregon South (US Feet)": "3602",
 
     # Pennsylvania
-    "Pennsylvania North (US Feet)": "32128",
-    "Pennsylvania South (US Feet)": "32129",
+    "Pennsylvania North (US Feet)": "3701",
+    "Pennsylvania South (US Feet)": "3702",
 
     # Rhode Island
-    "Rhode Island (US Feet)": "32130",
+    "Rhode Island (US Feet)": "3800",
 
     # South Carolina
-    "South Carolina (US Feet)": "32131",
+    "South Carolina (US Feet)": "3900",
 
     # South Dakota
-    "South Dakota North (US Feet)": "32132",
-    "South Dakota South (US Feet)": "32133",
+    "South Dakota North (US Feet)": "4001",
+    "South Dakota South (US Feet)": "4002",
 
     # Tennessee
-    "Tennessee (US Feet)": "32134",
+    "Tennessee (US Feet)": "4100",
 
     # Texas
-    "Texas North (US Feet)": "32135",
-    "Texas Central (US Feet)": "32136",
-    "Texas South (US Feet)": "32137",
-    "Texas South Central (USft)": "32140",
+    "Texas North (US Feet)": "4201",
+    "Texas North Central (US Feet)": "4202",
+    "Texas Central (US Feet)": "4203",
+    "Texas South (US Feet)": "4205",
+    "Texas South Central (USft)": "4204",
 
     # Utah
-    "Utah North (US Feet)": "32138",
-    "Utah Central (US Feet)": "32139",
-    "Utah South (US Feet)": "32140",
+    "Utah North (US Feet)": "4301",
+    "Utah Central (US Feet)": "4302",
+    "Utah South (US Feet)": "4303",
 
     # Vermont
-    "Vermont (US Feet)": "32141",
+    "Vermont (US Feet)": "4400",
 
     # Virginia
-    "Virginia North (US Feet)": "32142",
-    "Virginia South (US Feet)": "32143",
+    "Virginia North (US Feet)": "4501",
+    "Virginia South (US Feet)": "4502",
 
     # Washington
-    "Washington North (US Feet)": "32144",
-    "Washington South (US Feet)": "32145",
+    "Washington North (US Feet)": "4601",
+    "Washington South (US Feet)": "4602",
 
     # West Virginia
-    "West Virginia North (US Feet)": "32146",
-    "West Virginia South (US Feet)": "32147",
+    "West Virginia North (US Feet)": "4701",
+    "West Virginia South (US Feet)": "4702",
 
     # Wisconsin
-    "Wisconsin North (US Feet)": "32148",
-    "Wisconsin Central (US Feet)": "32149",
-    "Wisconsin South (US Feet)": "32150",
+    "Wisconsin North (US Feet)": "4801",
+    "Wisconsin Central (US Feet)": "4802",
+    "Wisconsin South (US Feet)": "4803",
 
     # Wyoming
-    "Wyoming East (US Feet)": "32151",
-    "Wyoming East Central (US Feet)": "32152",
-    "Wyoming West Central (US Feet)": "32153",
-    "Wyoming West (US Feet)": "32154",
+    "Wyoming East (US Feet)": "4901",
+    "Wyoming East Central (US Feet)": "4902",
+    "Wyoming West Central (US Feet)": "4903",
+    "Wyoming West (US Feet)": "4904",
 
     # Territories (US Feet)
-    "Puerto Rico (US Feet)": "32155",
-    "Guam (US Feet)": "32156",
+    "Puerto Rico (US Feet)": "5200",
+    "Guam (US Feet)": "5400",
+}
 
+STATE_PLANE_EPSG_CODES_METRIC = {
     # Alabama
     "Alabama East (Meters)": "26929",
     "Alabama West (Meters)": "26930",
