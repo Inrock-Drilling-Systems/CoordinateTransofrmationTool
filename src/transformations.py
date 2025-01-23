@@ -1,7 +1,8 @@
 import numpy as np
 from pyproj import Transformer
+from src.constants import spcs83_to_epsg
 
-def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_epsg):
+def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_zone):
     """
     Transforms local coordinates to State Plane coordinates (translation + rotation about Tie-In Entry),
     then converts them to Latitude/Longitude.
@@ -12,7 +13,7 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
         tie1_state: List [Easting, Northing, Elevation] of tie-in entry (State Plane coordinates).
         tie2_local: List [Away, Right, Elevation] of tie-in exit (local coordinates).
         tie2_state: List [Easting, Northing, Elevation] of tie-in exit (State Plane coordinates).
-        state_plane_epsg: EPSG code for the State Plane coordinate system.
+        state_plane_zone: FIPS code for the State Plane coordinate system.
 
     Returns:
         Transformed DataFrame with State Plane and Latitude/Longitude coordinates.
@@ -22,6 +23,7 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print(f"State Plane Entry (tie1_state): {tie1_state}")
     print(f"Local Exit (tie2_local): {tie2_local}")
     print(f"State Plane Exit (tie2_state): {tie2_state}")
+    EPSG_Code = spcs83_to_epsg[state_plane_zone]
 
     # Step 1: Translation
     T_x = tie1_state[0] - tie1_local[0]
@@ -55,7 +57,7 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print(data[['Rotated_X', 'Rotated_Y', 'Rotated_Z']])
 
     # Step 3: Transform to Latitude/Longitude
-    transformer_to_latlon = Transformer.from_crs(f"EPSG:{state_plane_epsg}", "EPSG:4326", always_xy=True)
+    transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
     data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
         data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
     )

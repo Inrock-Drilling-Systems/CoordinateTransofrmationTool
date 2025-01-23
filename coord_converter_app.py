@@ -3,7 +3,7 @@ import pandas as pd
 from src.transformations import transform_coordinates
 from src.remove_and_reformat import process_survey_csv
 from src.create_map import create_map
-from src.constants import STATE_PLANE_EPSG_CODES
+from src.constants import STATE_PLANE_ZONES
 from streamlit.components.v1 import html
 from src.generate_kmz import generate_kmz
 from src.pretty_dataframe import correct_output
@@ -22,11 +22,11 @@ with middle_column:
     st.header("Select Region for State Plane CRS")
     region = st.selectbox(
         "Select your region:",
-        list(STATE_PLANE_EPSG_CODES.keys()),
+        list(STATE_PLANE_ZONES.keys()),
         key="region_selectbox"  # Add a unique key
     )
-    state_plane_epsg = STATE_PLANE_EPSG_CODES[region]
-    st.write(f"Selected EPSG Code: {state_plane_epsg}")
+    state_plane_fips = STATE_PLANE_ZONES[region]
+    st.write(f"Selected State Plane FIPS: {state_plane_fips}")
 
 # Left column: Tie-in points
 with left_column:
@@ -70,7 +70,7 @@ with left_column:
     with col2:
         tie_in_exit_right = st.text_input("Right/Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
-        tie_in_exit_elevation = st.text_input("Elevation", "103.22", key="tie_in_exit_elevation")
+        tie_in_exit_elevation = st.text_input("Elevation", "0.00", key="tie_in_exit_elevation")
 
 # Middle column: File upload and output
 with middle_column:
@@ -124,7 +124,7 @@ with middle_column:
             tie2_state = [float(tie_in_exit_away), float(tie_in_exit_right), float(tie_in_exit_elevation)]
 
             try:
-                refactored_data = transform_coordinates(refactored_data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_epsg)
+                refactored_data = transform_coordinates(refactored_data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_fips)
                 refactored_data = correct_output(refactored_data)
                 st.write("Transformed Coordinates:")
                 st.write(refactored_data)

@@ -1,8 +1,8 @@
 # Original dictionary with only US Feet EPSG codes
-STATE_PLANE_EPSG_CODES = {
+STATE_PLANE_ZONES = {
     # Alabama
     "Alabama East (US Feet)": "0101",
-    "Alabama West (US Feet)": "0102",
+    "Alabama West (US Feet)": "0101",
 
     # Alaska
     # All meters are removed to new dictionary
@@ -218,6 +218,227 @@ STATE_PLANE_EPSG_CODES = {
     # Territories (US Feet)
     "Puerto Rico (US Feet)": "5200",
     "Guam (US Feet)": "5400",
+}
+
+spcs83_to_epsg = {
+    # Alabama
+    "0101": 26729,  # Alabama East
+    "0102": 26730,  # Alabama West
+
+    # Alaska
+    "5001": 26731,  # Alaska Zone 1
+    "5002": 26732,  # Alaska Zone 2
+    "5003": 26733,  # Alaska Zone 3
+    "5004": 26734,  # Alaska Zone 4
+    "5005": 26735,  # Alaska Zone 5
+    "5006": 26736,  # Alaska Zone 6
+    "5007": 26737,  # Alaska Zone 7
+    "5008": 26738,  # Alaska Zone 8
+    "5009": 26739,  # Alaska Zone 9
+    "5010": 26740,  # Alaska Zone 10
+
+    # Arizona
+    "0201": 2222,   # Arizona East
+    "0202": 2223,   # Arizona Central
+    "0203": 2224,   # Arizona West
+
+    # Arkansas
+    "0301": 26751,  # Arkansas North
+    "0302": 26752,  # Arkansas South
+
+    # California
+    "0401": 26741,  # California Zone 1
+    "0402": 26742,  # California Zone 2
+    "0403": 26743,  # California Zone 3
+    "0404": 26744,  # California Zone 4
+    "0405": 26745,  # California Zone 5
+    "0406": 26746,  # California Zone 6
+
+    # Colorado
+    "0501": 26753,  # Colorado North
+    "0502": 26754,  # Colorado Central
+    "0503": 26755,  # Colorado South
+
+    # Connecticut
+    "0600": 26756,  # Connecticut
+
+    # Delaware
+    "0700": 26757,  # Delaware
+
+    # Florida
+    "0901": 2236,   # Florida East
+    "0902": 2237,   # Florida West
+    "0903": 2238,   # Florida North
+
+    # Georgia
+    "1001": 26766,  # Georgia East
+    "1002": 26767,  # Georgia West
+
+    # Idaho
+    "1101": 26768,  # Idaho East
+    "1102": 26769,  # Idaho Central
+    "1103": 26770,  # Idaho West
+
+    # Illinois
+    "1201": 3435,   # Illinois East
+    "1202": 3436,   # Illinois West
+
+    # Indiana
+    "1301": 26773,  # Indiana East
+    "1302": 26774,  # Indiana West
+
+    # Iowa
+    "1401": 26775,  # Iowa North
+    "1402": 26776,  # Iowa South
+
+    # Kansas
+    "1501": 26777,  # Kansas North
+    "1502": 26778,  # Kansas South
+
+    # Kentucky
+    "1601": 2201,   # Kentucky North
+    "1602": 2202,   # Kentucky South
+
+    # Louisiana
+    "1701": 26781,  # Louisiana North
+    "1702": 26782,  # Louisiana South
+
+    # Maine
+    "1801": 26783,  # Maine East
+    "1802": 26784,  # Maine West
+
+    # Maryland
+    "1900": 2248,   # Maryland
+
+    # Massachusetts
+    "2001": 26786,  # Massachusetts Mainland
+    "2002": 26787,  # Massachusetts Island
+
+    # Michigan
+    "2111": 26811,  # Michigan North
+    "2112": 26812,  # Michigan Central
+    "2113": 26813,  # Michigan South
+
+    # Minnesota
+    "2201": 26791,  # Minnesota North
+    "2202": 26792,  # Minnesota Central
+    "2203": 26793,  # Minnesota South
+
+    # Mississippi
+    "2301": 26794,  # Mississippi East
+    "2302": 26795,  # Mississippi West
+
+    # Missouri
+    "2401": 26796,  # Missouri East
+    "2402": 26797,  # Missouri Central
+    "2403": 26798,  # Missouri West
+
+    # Montana
+    "2500": 32100,  # Montana
+
+    # Nebraska
+    "2600": 32104,  # Nebraska
+
+    # Nevada
+    "2701": 32107,  # Nevada East
+    "2702": 32108,  # Nevada Central
+    "2703": 32109,  # Nevada West
+
+    # New Hampshire
+    "2800": 32110,  # New Hampshire
+
+    # New Jersey
+    "2900": 32111,  # New Jersey
+
+    # New Mexico
+    "3001": 32112,  # New Mexico East
+    "3002": 32113,  # New Mexico Central
+    "3003": 32114,  # New Mexico West
+
+    # New York
+    "3101": 32115,  # New York East
+    "3102": 32116,  # New York Central
+    "3103": 32117,  # New York West
+    "3104": 2263,   # New York Long Island
+
+    # North Carolina
+    "3200": 32119,  # North Carolina
+
+    # North Dakota
+    "3301": 32120,  # North Dakota North
+    "3302": 32121,  # North Dakota South
+
+    # Ohio
+    "3401": 32122,  # Ohio North
+    "3402": 32123,  # Ohio South
+
+    # Oklahoma
+    "3501": 32124,  # Oklahoma North
+    "3502": 32125,  # Oklahoma South
+
+    # Oregon
+    "3601": 32126,  # Oregon North
+    "3602": 32127,  # Oregon South
+
+    # Pennsylvania
+    "3701": 32128,  # Pennsylvania North
+    "3702": 32129,  # Pennsylvania South
+
+    # Rhode Island
+    "3800": 32130,  # Rhode Island
+
+    # South Carolina
+    "3900": 32131,  # South Carolina
+
+    # South Dakota
+    "4001": 32132,  # South Dakota North
+    "4002": 32133,  # South Dakota South
+
+    # Tennessee
+    "4100": 32134,  # Tennessee
+
+    # Texas
+    "4201": 32135,  # Texas North
+    "4202": 32136,  # Texas North Central
+    "4203": 32137,  # Texas Central
+    "4204": 32138,  # Texas South Central
+    "4205": 32139,  # Texas South
+
+    # Utah
+    "4301": 32140,  # Utah North
+    "4302": 32141,  # Utah Central
+    "4303": 32142,  # Utah South
+
+    # Vermont
+    "4400": 32143,  # Vermont
+
+    # Virginia
+    "4501": 32144,  # Virginia North
+    "4502": 32145,  # Virginia South
+
+    # Washington
+    "4601": 32146,  # Washington North
+    "4602": 32147,  # Washington South
+
+    # West Virginia
+    "4701": 32148,  # West Virginia North
+    "4702": 32149,  # West Virginia South
+
+    # Wisconsin
+    "4801": 32150,  # Wisconsin North
+    "4802": 32151,  # Wisconsin Central
+    "4803": 32152,  # Wisconsin South
+
+    # Wyoming
+    "4901": 32153,  # Wyoming East
+    "4902": 32154,  # Wyoming East Central
+    "4903": 32155,  # Wyoming West Central
+    "4904": 32156,  # Wyoming West
+
+    # Territories
+    "5200": 32161,  # Puerto Rico
+    "5300": 32162,  # Virgin Islands
+    "5400": 6635    # Guam Map Grid NAD83 (USE WITH CAUTION; ESRI CONFLICT)
 }
 
 STATE_PLANE_EPSG_CODES_METRIC = {
