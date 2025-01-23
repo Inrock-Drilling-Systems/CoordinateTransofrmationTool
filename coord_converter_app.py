@@ -98,8 +98,6 @@ with middle_column:
     state_plane_fips = STATE_PLANE_ZONES[region]
     st.write(f"Selected State Plane FIPS: {state_plane_fips}")
 
-# # Middle column: File upload and output
-# with middle_column:
     # File upload
     st.header("Upload CSV of Local Coordinates")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
