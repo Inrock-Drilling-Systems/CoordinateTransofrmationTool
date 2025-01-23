@@ -1,5 +1,5 @@
 # Original dictionary with only US Feet EPSG codes
-STATE_PLANE_ZONES = {
+spsc83_zones = {
     # Alabama
     "Alabama East (US Feet)": "0101",
     "Alabama West (US Feet)": "0101",
