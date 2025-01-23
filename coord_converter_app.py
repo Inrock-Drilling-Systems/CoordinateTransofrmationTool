@@ -53,7 +53,7 @@ with left_column:
 
     # Tie-In Entry
     st.subheader("Tie-In Entry (State Plane Coordinates)")
-    col1, col2, col3 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     with col1:
         tie_in_entry_easting = st.text_input("Easting", "3055956.05", key="tie_in_entry_away")
     with col2:
