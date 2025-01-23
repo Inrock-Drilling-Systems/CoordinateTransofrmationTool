@@ -116,7 +116,8 @@ with middle_column:
     )
     state_plane_fips = spsc83_zones[region]
     st.write(f"Selected State Plane FIPS: {state_plane_fips}")
-    st.write(f"SPSC to EPSC Check: {spsc83_zones[state_plane_fips]}")
+
+    st.write(f"SPSC to EPSC Check: {spcs83_to_epsg[state_plane_fips]}")
 
     # File upload
     st.header("Upload CSV of Local Coordinates")
