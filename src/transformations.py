@@ -57,32 +57,29 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     cos_theta = np.cos(theta)
     sin_theta = np.sin(theta)
 
-    data['Rotated_X'] = cos_theta * translated_x - sin_theta * translated_y + tie1_state_meters[0]
-    data['Rotated_Y'] = sin_theta * translated_x + cos_theta * translated_y + tie1_state_meters[1]
-    data['Rotated_Z'] = data['Translated_Z']
+    # Store rotated coordinates directly in final columns
+    data['Easting'] = sin_theta * translated_x + cos_theta * translated_y + tie1_state_meters[1]
+    data['Northing'] = cos_theta * translated_x - sin_theta * translated_y + tie1_state_meters[0]
+    data['Elevation_TR'] = data['Translated_Z']
 
     # Debug: Verify rotation step
-    if 'Rotated_X' not in data.columns or 'Rotated_Y' not in data.columns:
-        raise ValueError("Rotation failed. Missing 'Rotated_X' or 'Rotated_Y'.")
-    print("Rotated Coordinates (meters):")
-    print(data[['Rotated_X', 'Rotated_Y', 'Rotated_Z']])
+    print("State Plane Coordinates (meters):")
+    print(data[['Easting', 'Northing', 'Elevation_TR']])
 
     # Step 3: Transform to Latitude/Longitude
     # Note: Using always_xy=True ensures correct handling of coordinate order
     transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
     data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
-        data['Rotated_Y'],  # Swap X/Y for correct E/N orientation
-        data['Rotated_X'],
-        data['Rotated_Z']
+        data['Easting'],  # Keep coordinates in correct E/N orientation
+        data['Northing'],
+        data['Elevation_TR']
     )
-
-    # Store the meter-converted State Plane coordinates
-    data['Easting'] = data['Rotated_Y']  # Store final coordinates in correct orientation
-    data['Northing'] = data['Rotated_X']
-    data['Elevation_TR'] = data['Rotated_Z']
 
     # Debug: Verify final coordinates
     print("Final Latitude/Longitude:")
     print(data[['Latitude', 'Longitude', 'Altitude']])
+
+    # Clean up intermediate calculation columns
+    data = data.drop(['Translated_X', 'Translated_Y', 'Translated_Z'], axis=1, errors='ignore')
 
     return data
