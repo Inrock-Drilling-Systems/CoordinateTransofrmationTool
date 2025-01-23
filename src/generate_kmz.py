@@ -15,10 +15,11 @@ def generate_kmz(latitudes, longitudes, elevations, descriptions, output_file="o
         Path to the generated KMZ file.
     """
     kml = simplekml.Kml()
+    icon_url = "https://maps.google.com/mapfiles/kml/paddle/ylw-blank.png"
 
     # Iterate over the data to create placemarks
-    for name, descriptions, lat, lon, icon_url in zip(latitudes, longitudes, elevations, descriptions):
-        pnt = kml.newpoint(name=name, description=descriptions, coords=[(lon, lat)])
+    for lat, lon, elev, desc in zip(latitudes, longitudes, elevations, descriptions):
+        pnt = kml.newpoint(description=desc, coords=[(lon, lat)])
         pnt.style.iconstyle.icon.href = icon_url
         pnt.style.iconstyle.scale = 1.5  # Adjust the scale of the icon as needed
 
