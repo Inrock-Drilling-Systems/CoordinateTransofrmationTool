@@ -308,7 +308,7 @@ spcs83_to_epsg = {
 
     # Louisiana
     "1701": 2256,  # Louisiana North
-    "1702": 2257,  # Louisiana South
+    "1702": 3452,  # Louisiana South
 
     # Maine
     "1801": 2258,  # Maine East
