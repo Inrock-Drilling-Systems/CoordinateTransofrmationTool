@@ -40,35 +40,35 @@ with left_column:
     with col2:
         local_entry_right = st.text_input("Right", "0.00", key="local_entry_right")
     with col3:
-        local_entry_elevation = st.text_input("Elevation", "100.00", key="local_entry_elevation")
+        local_entry_elevation = st.text_input("Elevation", "0.00", key="local_entry_elevation")
 
     # Tie-In Entry
     st.subheader("Tie-In Entry (State Plane Coordinates)")
     col1, col2, col3 = st.columns(3)
     with col1:
-        tie_in_entry_away = st.text_input("Away/Easting", "1148444.78", key="tie_in_entry_away")
+        tie_in_entry_away = st.text_input("Away/Easting", "3055956.05", key="tie_in_entry_away")
     with col2:
-        tie_in_entry_right = st.text_input("Right/Northing", "1942198.70", key="tie_in_entry_right")
+        tie_in_entry_right = st.text_input("Right/Northing", "13874745.74", key="tie_in_entry_right")
     with col3:
-        tie_in_entry_elevation = st.text_input("Elevation", "100.00", key="tie_in_entry_elevation")
+        tie_in_entry_elevation = st.text_input("Elevation", "0.00", key="tie_in_entry_elevation")
 
     # Local Exit
     st.subheader("Local Exit (Local Coordinates)")
     col1, col2, col3 = st.columns(3)
     with col1:
-        local_exit_away = st.text_input("Away", "1316.95", key="local_exit_away")
+        local_exit_away = st.text_input("Away", "2000.00", key="local_exit_away")
     with col2:
         local_exit_right = st.text_input("Right", "0.00", key="local_exit_right")
     with col3:
-        local_exit_elevation = st.text_input("Elevation", "103.22", key="local_exit_elevation")
+        local_exit_elevation = st.text_input("Elevation", "0.00", key="local_exit_elevation")
 
     # Tie-In Exit
     st.subheader("Tie-In Exit (State Plane Coordinates)")
     col1, col2, col3 = st.columns(3)
     with col1:
-        tie_in_exit_away = st.text_input("Away/Easting", "1147127.40", key="tie_in_exit_away")
+        tie_in_exit_away = st.text_input("Away/Easting", "3102522.92", key="tie_in_exit_away")
     with col2:
-        tie_in_exit_right = st.text_input("Right/Northing", "1942188.00", key="tie_in_exit_right")
+        tie_in_exit_right = st.text_input("Right/Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
         tie_in_exit_elevation = st.text_input("Elevation", "103.22", key="tie_in_exit_elevation")
 
