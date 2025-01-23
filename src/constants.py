@@ -222,223 +222,229 @@ STATE_PLANE_ZONES = {
 
 spcs83_to_epsg = {
     # Alabama
-    "0101": 26729,  # Alabama East
-    "0102": 26730,  # Alabama West
+    "0101": 3465,  # Alabama East
+    "0102": 3466,  # Alabama West
 
     # Alaska
-    "5001": 26731,  # Alaska Zone 1
-    "5002": 26732,  # Alaska Zone 2
-    "5003": 26733,  # Alaska Zone 3
-    "5004": 26734,  # Alaska Zone 4
-    "5005": 26735,  # Alaska Zone 5
-    "5006": 26736,  # Alaska Zone 6
-    "5007": 26737,  # Alaska Zone 7
-    "5008": 26738,  # Alaska Zone 8
-    "5009": 26739,  # Alaska Zone 9
-    "5010": 26740,  # Alaska Zone 10
+    "5001": 3468,  # Alaska Zone 1
+    "5002": 3469,  # Alaska Zone 2
+    "5003": 3470,  # Alaska Zone 3
+    "5004": 3471,  # Alaska Zone 4
+    "5005": 3472,  # Alaska Zone 5
+    "5006": 3473,  # Alaska Zone 6
+    "5007": 3474,  # Alaska Zone 7
+    "5008": 3475,  # Alaska Zone 8
+    "5009": 3476,  # Alaska Zone 9
+    "5010": 3477,  # Alaska Zone 10
 
     # Arizona
-    "0201": 2222,   # Arizona East
-    "0202": 2223,   # Arizona Central
-    "0203": 2224,   # Arizona West
+    "0201": 3478,  # Arizona East
+    "0202": 3479,  # Arizona Central
+    "0203": 3480,  # Arizona West
 
     # Arkansas
-    "0301": 26751,  # Arkansas North
-    "0302": 26752,  # Arkansas South
+    "0301": 3481,  # Arkansas North
+    "0302": 3482,  # Arkansas South
 
     # California
-    "0401": 26741,  # California Zone 1
-    "0402": 26742,  # California Zone 2
-    "0403": 26743,  # California Zone 3
-    "0404": 26744,  # California Zone 4
-    "0405": 26745,  # California Zone 5
-    "0406": 26746,  # California Zone 6
+    "0401": 3483,  # California Zone 1
+    "0402": 3484,  # California Zone 2
+    "0403": 3485,  # California Zone 3
+    "0404": 3486,  # California Zone 4
+    "0405": 3487,  # California Zone 5
+    "0406": 3488,  # California Zone 6
 
     # Colorado
-    "0501": 26753,  # Colorado North
-    "0502": 26754,  # Colorado Central
-    "0503": 26755,  # Colorado South
+    "0501": 3489,  # Colorado North
+    "0502": 3490,  # Colorado Central
+    "0503": 3491,  # Colorado South
 
     # Connecticut
-    "0600": 26756,  # Connecticut
+    "0600": 3492,  # Connecticut
 
     # Delaware
-    "0700": 26757,  # Delaware
+    "0700": 3493,  # Delaware
 
     # Florida
-    "0901": 2236,   # Florida East
-    "0902": 2237,   # Florida West
-    "0903": 2238,   # Florida North
+    "0901": 3494,  # Florida East
+    "0902": 3495,  # Florida West
+    "0903": 3496,  # Florida North
 
     # Georgia
-    "1001": 26766,  # Georgia East
-    "1002": 26767,  # Georgia West
+    "1001": 3497,  # Georgia East
+    "1002": 3498,  # Georgia West
+
+    # Hawaii
+    "5101": 3499,  # Hawaii Zone 1
+    "5102": 3500,  # Hawaii Zone 2
+    "5103": 3501,  # Hawaii Zone 3
+    "5104": 3502,  # Hawaii Zone 4
+    "5105": 3503,  # Hawaii Zone 5
 
     # Idaho
-    "1101": 26768,  # Idaho East
-    "1102": 26769,  # Idaho Central
-    "1103": 26770,  # Idaho West
+    "1101": 3504,  # Idaho East
+    "1102": 3505,  # Idaho Central
+    "1103": 3506,  # Idaho West
 
     # Illinois
-    "1201": 3435,   # Illinois East
-    "1202": 3436,   # Illinois West
+    "1201": 3507,  # Illinois East
+    "1202": 3508,  # Illinois West
 
     # Indiana
-    "1301": 26773,  # Indiana East
-    "1302": 26774,  # Indiana West
+    "1301": 3509,  # Indiana East
+    "1302": 3510,  # Indiana West
 
     # Iowa
-    "1401": 26775,  # Iowa North
-    "1402": 26776,  # Iowa South
+    "1401": 3511,  # Iowa North
+    "1402": 3512,  # Iowa South
 
     # Kansas
-    "1501": 26777,  # Kansas North
-    "1502": 26778,  # Kansas South
+    "1501": 3513,  # Kansas North
+    "1502": 3514,  # Kansas South
 
     # Kentucky
-    "1601": 2201,   # Kentucky North
-    "1602": 2202,   # Kentucky South
+    "1601": 3515,  # Kentucky North
+    "1602": 3516,  # Kentucky South
 
     # Louisiana
-    "1701": 26781,  # Louisiana North
-    "1702": 3452,  # Louisiana South
+    "1701": 3517,  # Louisiana North
+    "1702": 3518,  # Louisiana South
 
     # Maine
-    "1801": 26783,  # Maine East
-    "1802": 26784,  # Maine West
+    "1801": 3519,  # Maine East
+    "1802": 3520,  # Maine West
 
     # Maryland
-    "1900": 2248,   # Maryland
+    "1900": 3521,  # Maryland
 
     # Massachusetts
-    "2001": 26786,  # Massachusetts Mainland
-    "2002": 26787,  # Massachusetts Island
+    "2001": 3522,  # Massachusetts Mainland
+    "2002": 3523,  # Massachusetts Island
 
     # Michigan
-    "2111": 26811,  # Michigan North
-    "2112": 26812,  # Michigan Central
-    "2113": 26813,  # Michigan South
+    "2111": 3524,  # Michigan North
+    "2112": 3525,  # Michigan Central
+    "2113": 3526,  # Michigan South
 
     # Minnesota
-    "2201": 26791,  # Minnesota North
-    "2202": 26792,  # Minnesota Central
-    "2203": 26793,  # Minnesota South
+    "2201": 3527,  # Minnesota North
+    "2202": 3528,  # Minnesota Central
+    "2203": 3529,  # Minnesota South
 
     # Mississippi
-    "2301": 26794,  # Mississippi East
-    "2302": 26795,  # Mississippi West
+    "2301": 3530,  # Mississippi East
+    "2302": 3531,  # Mississippi West
 
     # Missouri
-    "2401": 26796,  # Missouri East
-    "2402": 26797,  # Missouri Central
-    "2403": 26798,  # Missouri West
+    "2401": 3532,  # Missouri East
+    "2402": 3533,  # Missouri Central
+    "2403": 3534,  # Missouri West
 
     # Montana
-    "2500": 32100,  # Montana
+    "2500": 3535,  # Montana
 
     # Nebraska
-    "2600": 32104,  # Nebraska
+    "2600": 3536,  # Nebraska
 
     # Nevada
-    "2701": 32107,  # Nevada East
-    "2702": 32108,  # Nevada Central
-    "2703": 32109,  # Nevada West
+    "2701": 3537,  # Nevada East
+    "2702": 3538,  # Nevada Central
+    "2703": 3539,  # Nevada West
 
     # New Hampshire
-    "2800": 32110,  # New Hampshire
+    "2800": 3540,  # New Hampshire
 
     # New Jersey
-    "2900": 3424,  # New Jersey
+    "2900": 3541,  # New Jersey
 
     # New Mexico
-    "3001": 32112,  # New Mexico East
-    "3002": 32113,  # New Mexico Central
-    "3003": 32114,  # New Mexico West
+    "3001": 3542,  # New Mexico East
+    "3002": 3543,  # New Mexico Central
+    "3003": 3544,  # New Mexico West
 
     # New York
-    "3101": 32115,  # New York East
-    "3102": 32116,  # New York Central
-    "3103": 32117,  # New York West
-    "3104": 2263,   # New York Long Island
+    "3101": 3545,  # New York East
+    "3102": 3546,  # New York Central
+    "3103": 3547,  # New York West
+    "3104": 3548,  # New York Long Island
 
     # North Carolina
-    "3200": 32119,  # North Carolina
+    "3200": 3549,  # North Carolina
 
     # North Dakota
-    "3301": 32120,  # North Dakota North
-    "3302": 32121,  # North Dakota South
+    "3301": 3550,  # North Dakota North
+    "3302": 3551,  # North Dakota South
 
     # Ohio
-    "3401": 32122,  # Ohio North
-    "3402": 32123,  # Ohio South
+    "3401": 3552,  # Ohio North
+    "3402": 3553,  # Ohio South
 
     # Oklahoma
-    "3501": 32124,  # Oklahoma North
-    "3502": 32125,  # Oklahoma South
+    "3501": 3554,  # Oklahoma North
+    "3502": 3555,  # Oklahoma South
 
     # Oregon
-    "3601": 32126,  # Oregon North
-    "3602": 32127,  # Oregon South
+    "3601": 3556,  # Oregon North
+    "3602": 3557,  # Oregon South
 
     # Pennsylvania
-    "3701": 32128,  # Pennsylvania North
-    "3702": 32129,  # Pennsylvania South
+    "3701": 3558,  # Pennsylvania North
+    "3702": 3559,  # Pennsylvania South
 
     # Rhode Island
-    "3800": 32130,  # Rhode Island
+    "3800": 3560,  # Rhode Island
 
     # South Carolina
-    "3900": 32131,  # South Carolina
+    "3900": 3561,  # South Carolina
 
     # South Dakota
-    "4001": 32132,  # South Dakota North
-    "4002": 32133,  # South Dakota South
+    "4001": 3562,  # South Dakota North
+    "4002": 3563,  # South Dakota South
 
     # Tennessee
-    "4100": 32134,  # Tennessee
+    "4100": 3564,  # Tennessee
 
     # Texas
-    "4201": 32135,  # Texas North
-    "4202": 32136,  # Texas North Central
-    "4203": 32137,  # Texas Central
-    "4204": 32138,  # Texas South Central
-    "4205": 32139,  # Texas South
+    "4201": 3565,  # Texas North
+    "4202": 3566,  # Texas North Central
+    "4203": 3567,  # Texas Central
+    "4204": 3568,  # Texas South Central
+    "4205": 3569,  # Texas South
 
     # Utah
-    "4301": 32140,  # Utah North
-    "4302": 32141,  # Utah Central
-    "4303": 32142,  # Utah South
+    "4301": 3570,  # Utah North
+    "4302": 3571,  # Utah Central
+    "4303": 3572,  # Utah South
 
     # Vermont
-    "4400": 32143,  # Vermont
+    "4400": 3573,  # Vermont
 
     # Virginia
-    "4501": 32144,  # Virginia North
-    "4502": 32145,  # Virginia South
+    "4501": 3574,  # Virginia North
+    "4502": 3575,  # Virginia South
 
     # Washington
-    "4601": 32146,  # Washington North
-    "4602": 32147,  # Washington South
+    "4601": 3576,  # Washington North
+    "4602": 3577,  # Washington South
 
     # West Virginia
-    "4701": 32148,  # West Virginia North
-    "4702": 32149,  # West Virginia South
+    "4701": 3578,  # West Virginia North
+    "4702": 3579,  # West Virginia South
 
     # Wisconsin
-    "4801": 32150,  # Wisconsin North
-    "4802": 32151,  # Wisconsin Central
-    "4803": 32152,  # Wisconsin South
+    "4801": 3580,  # Wisconsin North
+    "4802": 3581,  # Wisconsin Central
+    "4803": 3582,  # Wisconsin South
 
     # Wyoming
-    "4901": 32153,  # Wyoming East
-    "4902": 32154,  # Wyoming East Central
-    "4903": 32155,  # Wyoming West Central
-    "4904": 32156,  # Wyoming West
+    "4901": 3583,  # Wyoming East
+    "4902": 3584,  # Wyoming East Central
+    "4903": 3585,  # Wyoming West Central
+    "4904": 3586,  # Wyoming West
 
     # Territories
-    "5200": 32161,  # Puerto Rico
-    "5300": 32162,  # Virgin Islands
-    "5400": 6635    # Guam Map Grid NAD83 (USE WITH CAUTION; ESRI CONFLICT)
+    "5200": 3587,  # Puerto Rico
+    "5400": 3588,  # Guam
 }
 
 STATE_PLANE_EPSG_CODES_METRIC = {
