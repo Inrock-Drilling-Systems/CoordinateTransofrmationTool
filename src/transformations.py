@@ -1,7 +1,6 @@
 import numpy as np
 from pyproj import Transformer
 from src.constants import spcs83_to_epsg
-from data.config import map_api
 
 def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, state_plane_zone):
     """
