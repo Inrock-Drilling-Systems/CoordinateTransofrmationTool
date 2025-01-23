@@ -44,17 +44,20 @@ with left_column:
 
     # Tie-In Entry
     st.subheader("Tie-In Entry (State Plane Coordinates)")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         tie_in_entry_easting = st.text_input("Easting", "3055956.05", key="tie_in_entry_away")
     with col2:
         tie_in_entry_northing = st.text_input("Northing", "13874745.74", key="tie_in_entry_right")
     with col3:
         tie_in_entry_elevation = st.text_input("Elevation", "0.00", key="tie_in_entry_elevation")
+    with col4:
+        link_elevations = st.checkbox("Link Elevations", value=True,
+                                      help="When checked, State Plane elevations will match Local elevations")
 
     # Local Exit
     st.subheader("Local Exit (Local Coordinates)")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         local_exit_away = st.text_input("Away", "2000.00", key="local_exit_away")
     with col2:
@@ -71,6 +74,9 @@ with left_column:
         tie_in_exit_northing = st.text_input("Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
         tie_in_exit_elevation = st.text_input("Elevation", "0.00", key="tie_in_exit_elevation")
+    with col4:
+        link_elevations = st.checkbox("Link Elevations", value=True,
+                                      help="When checked, State Plane elevations will match Local elevations")
 
 # Middle column: File upload and output
 with middle_column:
