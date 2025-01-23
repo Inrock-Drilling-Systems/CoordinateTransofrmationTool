@@ -4,7 +4,7 @@ import numpy as np
 from src.transformations import transform_coordinates
 from src.remove_and_reformat import process_survey_csv
 from src.create_map import create_map
-from src.constants import STATE_PLANE_ZONES
+from src.constants import spsc83_zones, spcs83_to_epsg
 from streamlit.components.v1 import html
 from src.generate_kmz import generate_kmz
 from src.pretty_dataframe import correct_output
@@ -111,10 +111,10 @@ with middle_column:
     st.header("Select Region for State Plane CRS")
     region = st.selectbox(
         "Select your region:",
-        list(STATE_PLANE_ZONES.keys()),
+        list(spsc83_zones.keys()),
         key="region_selectbox"  # Add a unique key
     )
-    state_plane_fips = STATE_PLANE_ZONES[region]
+    state_plane_fips = spsc83_zones[region]
     st.write(f"Selected State Plane FIPS: {state_plane_fips}")
 
     # File upload
