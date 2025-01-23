@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from src.transformations import transform_coordinates
 from src.remove_and_reformat import process_survey_csv
 from src.create_map import create_map
@@ -86,6 +87,26 @@ with left_column:
                                             value=st.session_state.tie_in_exit_elevation,
                                             key="tie_in_exit_elevation",
                                             disabled=link_elevations)
+
+    # Calculate and display horizontal spans
+    st.subheader("Horizontal Spans")
+
+    # Calculate Local H. Span
+    local_entry = np.array([float(local_entry_away), float(local_entry_right)])
+    local_exit = np.array([float(local_exit_away), float(local_exit_right)])
+    local_span = np.sqrt(np.sum((local_exit - local_entry) ** 2))
+
+    # Calculate State Plane H. Span
+    state_entry = np.array([float(tie_in_entry_easting), float(tie_in_entry_northing)])
+    state_exit = np.array([float(tie_in_exit_easting), float(tie_in_exit_northing)])
+    state_span = np.sqrt(np.sum((state_exit - state_entry) ** 2))
+
+    # Display spans in two columns
+    span_col1, span_col2 = st.columns(2)
+    with span_col1:
+        st.metric("Local H. Span", f"{local_span:.2f} ft")
+    with span_col2:
+        st.metric("Tie-In H. Span", f"{state_span:.2f} ft")
 
 # Dropdown menu in the top middle column
 with middle_column:
