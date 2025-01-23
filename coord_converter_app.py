@@ -32,6 +32,10 @@ with middle_column:
 with left_column:
     st.header("Tie-in Points")
 
+    # Add single checkbox for elevation linking at the top
+    link_elevations = st.checkbox("Link All Elevations", value=True,
+                                  help="When checked, State Plane elevations will match Local elevations")
+
     # Local Entry
     st.subheader("Local Entry (Local Coordinates)")
     col1, col2, col3 = st.columns(3)
@@ -40,20 +44,27 @@ with left_column:
     with col2:
         local_entry_right = st.text_input("Right", "0.00", key="local_entry_right")
     with col3:
-        local_entry_elevation = st.text_input("Elevation", "0.00", key="local_entry_elevation")
+        if 'local_entry_elevation' not in st.session_state:
+            st.session_state.local_entry_elevation = "0.00"
+        local_entry_elevation = st.text_input("Elevation", st.session_state.local_entry_elevation, key="local_entry_elevation")
+        if local_entry_elevation != st.session_state.local_entry_elevation and link_elevations:
+            st.session_state.tie_in_entry_elevation = local_entry_elevation
+            st.session_state.local_entry_elevation = local_entry_elevation
 
     # Tie-In Entry
     st.subheader("Tie-In Entry (State Plane Coordinates)")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(4)
     with col1:
         tie_in_entry_easting = st.text_input("Easting", "3055956.05", key="tie_in_entry_away")
     with col2:
         tie_in_entry_northing = st.text_input("Northing", "13874745.74", key="tie_in_entry_right")
     with col3:
-        tie_in_entry_elevation = st.text_input("Elevation", "0.00", key="tie_in_entry_elevation")
-    with col4:
-        link_elevations = st.checkbox("Link Elevations", value=True,
-                                      help="When checked, State Plane elevations will match Local elevations")
+        if 'tie_in_entry_elevation' not in st.session_state:
+            st.session_state.tie_in_entry_elevation = local_entry_elevation if link_elevations else "0.00"
+        tie_in_entry_elevation = st.text_input("Elevation",
+                                             value=st.session_state.tie_in_entry_elevation,
+                                             key="tie_in_entry_elevation",
+                                             disabled=link_elevations)
 
     # Local Exit
     st.subheader("Local Exit (Local Coordinates)")
@@ -63,7 +74,12 @@ with left_column:
     with col2:
         local_exit_right = st.text_input("Right", "0.00", key="local_exit_right")
     with col3:
-        local_exit_elevation = st.text_input("Elevation", "0.00", key="local_exit_elevation")
+        if 'local_exit_elevation' not in st.session_state:
+            st.session_state.local_exit_elevation = "0.00"
+        local_exit_elevation = st.text_input("Elevation", st.session_state.local_exit_elevation, key="local_exit_elevation")
+        if local_exit_elevation != st.session_state.local_exit_elevation and link_elevations:
+            st.session_state.tie_in_exit_elevation = local_exit_elevation
+            st.session_state.local_exit_elevation = local_exit_elevation
 
     # Tie-In Exit
     st.subheader("Tie-In Exit (State Plane Coordinates)")
@@ -73,10 +89,12 @@ with left_column:
     with col2:
         tie_in_exit_northing = st.text_input("Northing", "13761445.36", key="tie_in_exit_right")
     with col3:
-        tie_in_exit_elevation = st.text_input("Elevation", "0.00", key="tie_in_exit_elevation")
-    with col4:
-        link_elevations = st.checkbox("Link Elevations", value=True,
-                                      help="When checked, State Plane elevations will match Local elevations")
+        if 'tie_in_exit_elevation' not in st.session_state:
+            st.session_state.tie_in_exit_elevation = local_exit_elevation if link_elevations else "0.00"
+        tie_in_exit_elevation = st.text_input("Elevation",
+                                            value=st.session_state.tie_in_exit_elevation,
+                                            key="tie_in_exit_elevation",
+                                            disabled=link_elevations)
 
 # Middle column: File upload and output
 with middle_column:
