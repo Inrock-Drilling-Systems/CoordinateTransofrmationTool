@@ -17,16 +17,7 @@ st.title("3D Coordinate Transformation Tool v0.2")
 # Layout: Divide the page into three columns
 left_column, middle_column, right_column = st.columns([1, 1, 1])  # Equal thirds
 
-# Dropdown menu in the top middle column
-with middle_column:
-    st.header("Select Region for State Plane CRS")
-    region = st.selectbox(
-        "Select your region:",
-        list(STATE_PLANE_ZONES.keys()),
-        key="region_selectbox"  # Add a unique key
-    )
-    state_plane_fips = STATE_PLANE_ZONES[region]
-    st.write(f"Selected State Plane FIPS: {state_plane_fips}")
+
 
 # Left column: Tie-in points
 with left_column:
@@ -96,8 +87,19 @@ with left_column:
                                             key="tie_in_exit_elevation",
                                             disabled=link_elevations)
 
-# Middle column: File upload and output
+# Dropdown menu in the top middle column
 with middle_column:
+    st.header("Select Region for State Plane CRS")
+    region = st.selectbox(
+        "Select your region:",
+        list(STATE_PLANE_ZONES.keys()),
+        key="region_selectbox"  # Add a unique key
+    )
+    state_plane_fips = STATE_PLANE_ZONES[region]
+    st.write(f"Selected State Plane FIPS: {state_plane_fips}")
+
+# # Middle column: File upload and output
+# with middle_column:
     # File upload
     st.header("Upload CSV of Local Coordinates")
     uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
