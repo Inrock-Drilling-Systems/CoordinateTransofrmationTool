@@ -68,7 +68,7 @@ with left_column:
 
     # Local Exit
     st.subheader("Local Exit (Local Coordinates)")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     with col1:
         local_exit_away = st.text_input("Away", "2000.00", key="local_exit_away")
     with col2:
