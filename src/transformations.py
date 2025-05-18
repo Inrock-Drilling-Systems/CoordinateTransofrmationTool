@@ -23,7 +23,9 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
     print(f"State Plane Entry (tie1_state): {tie1_state}")
     print(f"Local Exit (tie2_local): {tie2_local}")
     print(f"State Plane Exit (tie2_state): {tie2_state}")
+    print(f"DEBUG: state_plane_zone received: {state_plane_zone}")
     EPSG_Code = spcs83_to_epsg[state_plane_zone]
+    print(f"DEBUG: EPSG_Code being used: {EPSG_Code}")
 
     # Step 1: Translation
     T_x = tie1_state[0] - tie1_local[0]
@@ -58,11 +60,17 @@ def transform_coordinates(data, tie1_local, tie1_state, tie2_local, tie2_state, 
 
     # Step 3: Convert State Plane to Latitude/Longitude
     transformer_to_latlon = Transformer.from_crs(f"EPSG:{EPSG_Code}", "EPSG:4326", always_xy=True)
+
+    print("DEBUG: Sample of Rotated_X before transform:")
+    print(data['Rotated_X'].head())  # ADD THIS
+    print("DEBUG: Sample of Rotated_Y before transform:")
+    print(data['Rotated_Y'].head())  # ADD THIS
+
     data['Latitude'], data['Longitude'], data['Altitude'] = transformer_to_latlon.transform(
         data['Rotated_X'], data['Rotated_Y'], data['Rotated_Z']
     )
 
-    print("Latitude/Longitude Results:")
-    print(data[['Latitude','Longitude', 'Altitude']])
+    # print("Latitude/Longitude Results:")
+    # print(data[['Latitude','Longitude', 'Altitude']])
 
     return data
