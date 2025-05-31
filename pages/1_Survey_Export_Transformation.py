@@ -10,11 +10,14 @@ from src.generate_kmz import generate_kmz
 from src.pretty_dataframe import correct_output
 
 # Open Streamlit in Wide Mode
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",
+                   page_title="Inrock Guidance",
+                   page_icon="🌍")
 
 # Title
-st.title("3D Coordinate Transformation Tool v0.3-Beta")
-st.write("Release: May 18, 2025")
+st.title("3D Coordinate Transformation Tool")
+st.write("Version 0.4 - Feature Expansion")
+st.write("Page Updated: May 18, 2025")
 # Layout: Divide the page into three columns
 left_column, middle_column, right_column = st.columns([1, 1, 1])
 
