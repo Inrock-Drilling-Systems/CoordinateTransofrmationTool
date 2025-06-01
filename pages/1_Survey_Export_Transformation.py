@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from src.transformations import transform_coordinates, lookup_spcs_by_lat_lon
+from src.transformations import transform_coordinates
 from src.remove_and_reformat import process_survey_csv
 from src.create_map import create_map
-from src.constants import spsc83_zones, spcs83_to_epsg, COUNTY_SPCS_MAPPING
+from src.constants import spsc83_zones, spcs83_to_epsg, county_spcs_mapping
 from streamlit.components.v1 import html
 from src.generate_kmz import generate_kmz
 from src.pretty_dataframe import correct_output
@@ -13,9 +13,6 @@ from src.pretty_dataframe import correct_output
 st.set_page_config( layout="wide",
                     page_title="Inrock Guidance - Survey Export Trasnformer",
                     page_icon="🌍")
-
-
-
 
 # Title
 st.title("3D Coordinate Transformation Tool")
