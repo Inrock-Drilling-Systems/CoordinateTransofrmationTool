@@ -450,7 +450,7 @@ spcs83_to_epsg = {
 
 }
 
-US_STATES = [
+us_states = [
     "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
     "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
     "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
@@ -462,3 +462,40 @@ US_STATES = [
     "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
     "West Virginia", "Wisconsin", "Wyoming"
 ]
+
+
+# --- Data Loading (Simulated for demonstration) ---
+# In a real application, you would load a GeoJSON or shapefile here
+# For the purpose of demonstration, I'll simulate a very basic lookup.
+# For a full implementation, you'd need a comprehensive county-to-SPCS mapping.
+
+# A highly simplified and incomplete mapping for demonstration.
+# Real data would involve spatial queries.
+# This is NOT comprehensive, it's just to show the structure.
+# You'd typically load this from a pre-processed GeoJSON.
+
+county_spcs_mapping = {
+    "Texas": {
+        "Harris": {"zone_name": "Texas South Central", "fips": "4204"},
+        "Dallas": {"zone_name": "Texas North Central", "fips": "4202"},
+        "Bexar": {"zone_name": "Texas South Central", "fips": "4204"}, # Example
+    },
+    "California": {
+        "Los Angeles": {"zone_name": "California Zone V", "fips": "0405"},
+        "San Bernardino": {"zone_name": "California Zone VI", "fips": "0406"},
+    },
+    # ... add more states and counties as needed for a full dataset
+}
+
+# Placeholder for actual county GeoJSON data if loaded
+# This URL is just an example. You'd need a hosted GeoJSON or a local file.
+# For a real project, consider hosting a simplified county GeoJSON or packaging it.
+# E.g., from https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html
+# or a pre-processed version with SPCS info.
+# For now, we'll use a placeholder URL and rely on manual mapping for the demo.
+# county_geojson_url = "https://raw.githubusercontent.com/OpenDataDE/State-County-Shapefiles/master/geojson/alabama-counties.json" # Example, not comprehensive
+# @st.cache_data # Cache the data loading
+# def load_county_geojson(url):
+#     response = requests.get(url)
+#     return response.json()
+# county_data = load_county_geojson(county_geojson_url) # Not using this yet, demonstrating structure
