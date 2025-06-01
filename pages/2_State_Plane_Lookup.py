@@ -52,12 +52,12 @@ with tab_county:
     st.header("Lookup by County")
     selected_state = st.selectbox(
         "Select State:",
-        options=list(COUNTY_SPCS_MAPPING.keys()),
+        options=list(county_spcs_mapping.keys()),
         key="state_select"
     )
 
     if selected_state:
-        counties_in_state = list(COUNTY_SPCS_MAPPING[selected_state].keys())
+        counties_in_state = list(county_spcs_mapping[selected_state].keys())
         selected_county = st.selectbox(
             f"Select County in {selected_state}:",
             options=counties_in_state,
@@ -66,7 +66,7 @@ with tab_county:
 
         if selected_county:
             st.subheader("Result:")
-            zone_info = COUNTY_SPCS_MAPPING[selected_state][selected_county]
+            zone_info = county_spcs_mapping[selected_state][selected_county]
             st.success(f"**Zone Name:** {zone_info['zone_name']}")
             st.success(f"**Zone FIPS:** {zone_info['fips']}")
             if zone_info['fips'] in spcs83_to_epsg:
