@@ -37,7 +37,11 @@ st.set_page_config(
     layout="centered" # or "wide" if you prefer
 )
 
-st.title("**Phase: Alpha :: Do not trust output**")
+st.title("SPCS83 Lookup")
+st.write("Version 0.4 - Feature Expansion")
+st.write("Page Updated: June 1st, 2025")
+
+
 st.write(
     """
     Use this tool to find State Plane Coordinate System (SPCS) zone information
@@ -50,6 +54,7 @@ tab_county, tab_lat_lon = st.tabs(["Lookup by County", "Lookup by Lat/Lon"])
 
 with tab_county:
     st.header("Lookup by County")
+    st.title("**Phase: Beta :: Report Bugs on Discovery**")
     selected_state = st.selectbox(
         "Select State:",
         options=list(county_spcs_mapping.keys()),
@@ -81,6 +86,7 @@ with tab_county:
 
 with tab_lat_lon:
     st.header("Lookup by Latitude/Longitude")
+    st.title("**Phase: Alpha :: Do not trust output**")
     lat_input = st.number_input("Enter Latitude:", min_value=-90.0, max_value=90.0, value=30.0, format="%.6f", key="lat_input")
     lon_input = st.number_input("Enter Longitude:", min_value=-180.0, max_value=180.0, value=-95.0, format="%.6f", key="lon_input")
 
