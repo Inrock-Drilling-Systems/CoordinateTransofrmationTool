@@ -72,10 +72,9 @@ st.set_page_config(
     layout="centered" # or "wide" if you prefer
 )
 
+st.title("**Phase: Alpha :: Do not trust output**")
 st.write(
     """
-    **Phase: Alpha :: Do not trust output**
-    
     Use this tool to find State Plane Coordinate System (SPCS) zone information
     by either selecting a U.S. county or providing Latitude/Longitude coordinates.
     """
