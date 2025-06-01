@@ -5,3 +5,6 @@ folium
 pytest
 simplekml
 numpy
+shapely
+fiona
+geopandas

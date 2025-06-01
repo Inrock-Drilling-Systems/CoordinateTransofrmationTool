@@ -11,7 +11,7 @@ from src.pretty_dataframe import correct_output
 
 # Open Streamlit in Wide Mode
 st.set_page_config(layout="wide",
-                   page_title="Inrock Guidance",
+                   page_title="Inrock Guidance - Survey Export Trasnformer",
                    page_icon="🌍")
 
 # Title
