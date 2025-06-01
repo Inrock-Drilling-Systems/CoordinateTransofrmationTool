@@ -4,7 +4,7 @@
 
 ## Overview
 
-Welcome to the **3D Coordinate Transformation Tool**! This Streamlit-powered web application simplifies the process of converting 3D coordinates between different systems, primarily focusing on local coordinates and State Plane Coordinate Systems (SPCS). It's designed to assist surveyors, engineers, and geospatial professionals in managing and transforming their data.
+Welcome to the **Inrock Transformation Tool**! This Streamlit-powered web application simplifies the process of converting 3D coordinates between different systems, primarily focusing on local coordinates and State Plane Coordinate Systems (SPCS). It's designed to assist surveyors, engineers, and geospatial professionals in managing and transforming their data.
 
 This tool now supports a multi-page interface, offering dedicated sections for coordinate transformation and State Plane zone lookups.
 
