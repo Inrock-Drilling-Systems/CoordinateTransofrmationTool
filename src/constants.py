@@ -419,11 +419,11 @@ spcs83_to_epsg = {
     "4303": 2282,  # NAD83 / Utah South (ftUS)
 
     # Vermont
-    "4400": 2283,  # NAD83 / Vermont (ftUS)
+    "4400": 6589,  # NAD83 / Vermont (ftUS)
 
     # Virginia
-    "4501": 2284,  # NAD83 / Virginia North (ftUS)
-    "4502": 2285,  # NAD83 / Virginia South (ftUS)
+    "4501": 2283,  # NAD83 / Virginia North (ftUS)
+    "4502": 2284,  # NAD83 / Virginia South (ftUS)
 
     # Washington
     "4601": 2285,  # NAD83 / Washington North (ftUS)
