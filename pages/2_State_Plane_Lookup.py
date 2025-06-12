@@ -1,5 +1,6 @@
 import streamlit as st
 import math
+import re
 import pandas as pd
 import json
 import requests
@@ -59,10 +60,33 @@ def convert_spcs_to_wgs(easting, northing, spcs_zone_code):
         st.error(f"Transformation Error: Please check your input values and the selected SPCS Zone.")
         return None, None
 
+def parse_dms_string(dms_str):
+    """
+    Parses a DMS string into components using regular expressions.
+    Handles formats like: 40°44'52.2"N, 40 44 52.2 N, -98 11 22.5
+    Returns (degrees, minutes, seconds, hemisphere) or None if parsing fails.
+    """
+    dms_str = dms_str.strip()
+    # This regex captures numbers separated by common delimiters, and an optional hemisphere letter.
+    match = re.match(r'(-?[\d\.]+)[°\s\-:]+([\d\.]+)[`\'\s\-:]+([\d\.]+)"?[\s]*([NSEW]?)', dms_str, re.IGNORECASE)
+    if not match:
+        return None  # Return None if the format is not recognized
+
+    groups = match.groups()
+    degrees = float(groups[0])
+    minutes = float(groups[1])
+    seconds = float(groups[2])
+    hemisphere = groups[3].upper()
+
+    # If a hemisphere is specified, ensure degrees is positive
+    if hemisphere and degrees < 0:
+        degrees = abs(degrees)
+
+    return degrees, minutes, seconds, hemisphere
+
 def dd_to_dms(dd):
     """Converts a decimal degree value to its positive D, M, S components."""
     if dd is None: return 0, 0, 0
-    sign = -1 if dd < 0 else 1
     dd = abs(dd)
     degrees = math.floor(dd)
     minutes_float = (dd - degrees) * 60
@@ -70,13 +94,13 @@ def dd_to_dms(dd):
     seconds = (minutes_float - minutes) * 60
     return degrees, minutes, seconds
 
-def dms_to_dd(degrees, minutes, seconds, hemisphere):
-    """Converts D, M, S and a hemisphere to a decimal degree value."""
+def dms_to_dd(degrees, minutes, seconds, hemisphere=''):
+    """Converts D, M, S and an optional hemisphere to a decimal degree value."""
     degrees = degrees or 0
     minutes = minutes or 0
     seconds = seconds or 0
-    dd = degrees + (minutes / 60) + (seconds / 3600)
-    if hemisphere in ['S', 'W']:
+    dd = abs(degrees) + (minutes / 60) + (seconds / 3600)
+    if hemisphere in ['S', 'W'] or degrees < 0:
         return -dd
     return dd
 
@@ -250,106 +274,109 @@ with tab_point_converter:
         st.number_input("Easting", key='easting', format="%.4f", on_change=spcs_changed)
         st.number_input("Northing", key='northing', format="%.4f", on_change=spcs_changed)
 
+# --- TAB 4: DD <-> DMS Converter ---
 with tab_dms_converter:
     st.header("Live Decimal Degree <-> DMS Converter")
 
     # --- LATITUDE CONVERTER ---
     st.subheader("Latitude Conversion")
 
-    # Initialize session state for this converter
-    if 'lat_init' not in st.session_state:
-        st.session_state.lat_dd = 29.557300  # Default to your area in Pearland, TX
-        st.session_state.lat_hemi = "N"
-        st.session_state.lat_d, st.session_state.lat_m, st.session_state.lat_s = dd_to_dms(st.session_state.lat_dd)
+    if 'lat_dms_init' not in st.session_state:
+        st.session_state.lat_dd_val = 29.557300
+        st.session_state.lat_dms_str = "29°33'26.2800\"N"
         st.session_state.lat_last_changed = 'none'
-        st.session_state.lat_init = True
+        st.session_state.lat_dms_init = True
 
 
-    # Callbacks to track which side was changed
-    def lat_dd_changed():
+    def lat_dd_val_changed():
         st.session_state.lat_last_changed = 'dd'
 
 
-    def lat_dms_changed():
+    def lat_dms_str_changed():
         st.session_state.lat_last_changed = 'dms'
 
 
-    # Logic to run the appropriate conversion
     if st.session_state.lat_last_changed != 'none':
         if st.session_state.lat_last_changed == 'dd':
-            st.session_state.lat_hemi = "N" if st.session_state.lat_dd >= 0 else "S"
-            st.session_state.lat_d, st.session_state.lat_m, st.session_state.lat_s = dd_to_dms(st.session_state.lat_dd)
+            dd = st.session_state.lat_dd_val
+            hemi = "N" if dd >= 0 else "S"
+            d, m, s = dd_to_dms(dd)
+            st.session_state.lat_dms_str = f'{d}°{m}\'{s:.4f}"{hemi}'
         elif st.session_state.lat_last_changed == 'dms':
-            st.session_state.lat_dd = dms_to_dd(st.session_state.lat_d, st.session_state.lat_m, st.session_state.lat_s,
-                                                st.session_state.lat_hemi)
+            parsed = parse_dms_string(st.session_state.lat_dms_str)
+            if parsed:
+                d, m, s, hemi = parsed
+                if hemi not in ['N', 'S'] and d >= 0:
+                    hemi = 'N'
+                elif hemi not in ['N', 'S'] and d < 0:
+                    hemi = 'S'
+                st.session_state.lat_dd_val = dms_to_dd(d, m, s, hemi)
         st.session_state.lat_last_changed = 'none'
 
-    # UI Layout for the Latitude Converter
-    lat_col1, lat_col2, lat_col3 = st.columns([2.5, 1, 2.5])
+    lat_col1, lat_col2, lat_col3 = st.columns([2, 1, 2])
     with lat_col1:
-        st.number_input("Decimal Latitude", key='lat_dd', format="%.8f", on_change=lat_dd_changed)
+        st.number_input("Decimal Latitude", key='lat_dd_val', format="%.8f", on_change=lat_dd_val_changed)
     with lat_col2:
-        # This container uses Flexbox to perfectly center the arrow.
+        # This container uses Flexbox for precise vertical alignment.
         st.markdown("""
-            <div style="display: flex; align-items: center; justify-content: center; height: 89px;">
+            <div style="display: flex; align-items: center; justify-content: center; height: 74px;">
                 <p style="font-size: 3em; font-weight: bold; margin: 0; padding: 0;">⇌</p>
             </div>
         """, unsafe_allow_html=True)
     with lat_col3:
-        hemi_col, d_col, m_col, s_col = st.columns([0.8, 1, 1, 1.2])
-        with hemi_col: st.radio(" ", options=["N", "S"], key='lat_hemi', on_change=lat_dms_changed, horizontal=True)
-        with d_col: st.number_input("Deg (°)", key='lat_d', min_value=0, step=1, on_change=lat_dms_changed)
-        with m_col: st.number_input("Min (')", key='lat_m', min_value=0, step=1, on_change=lat_dms_changed)
-        with s_col: st.number_input("Sec (\")", key='lat_s', min_value=0.0, format="%.4f", on_change=lat_dms_changed)
+        st.text_input("DMS Latitude", key='lat_dms_str', on_change=lat_dms_str_changed,
+                      placeholder="e.g., 40 44 52.2 N")
 
     st.divider()
 
     # --- LONGITUDE CONVERTER ---
     st.subheader("Longitude Conversion")
 
-    if 'lon_init' not in st.session_state:
-        st.session_state.lon_dd = -95.283500  # Default to your area in Pearland, TX
-        st.session_state.lon_hemi = "W"
-        st.session_state.lon_d, st.session_state.lon_m, st.session_state.lon_s = dd_to_dms(st.session_state.lon_dd)
+    if 'lon_dms_init' not in st.session_state:
+        st.session_state.lon_dd_val = -95.283500
+        st.session_state.lon_dms_str = "95°17'0.6000\"W"
         st.session_state.lon_last_changed = 'none'
-        st.session_state.lon_init = True
+        st.session_state.lon_dms_init = True
 
 
-    def lon_dd_changed():
+    def lon_dd_val_changed():
         st.session_state.lon_last_changed = 'dd'
 
 
-    def lon_dms_changed():
+    def lon_dms_str_changed():
         st.session_state.lon_last_changed = 'dms'
 
 
-    # Logic for Longitude
     if st.session_state.lon_last_changed != 'none':
         if st.session_state.lon_last_changed == 'dd':
-            st.session_state.lon_hemi = "E" if st.session_state.lon_dd >= 0 else "W"
-            st.session_state.lon_d, st.session_state.lon_m, st.session_state.lon_s = dd_to_dms(st.session_state.lon_dd)
+            dd = st.session_state.lon_dd_val
+            hemi = "E" if dd >= 0 else "W"
+            d, m, s = dd_to_dms(dd)
+            st.session_state.lon_dms_str = f'{d}°{m}\'{s:.4f}"{hemi}'
         elif st.session_state.lon_last_changed == 'dms':
-            st.session_state.lon_dd = dms_to_dd(st.session_state.lon_d, st.session_state.lon_m, st.session_state.lon_s,
-                                                st.session_state.lon_hemi)
+            parsed = parse_dms_string(st.session_state.lon_dms_str)
+            if parsed:
+                d, m, s, hemi = parsed
+                if hemi not in ['E', 'W'] and d >= 0:
+                    hemi = 'E'
+                elif hemi not in ['E', 'W'] and d < 0:
+                    hemi = 'W'
+                st.session_state.lon_dd_val = dms_to_dd(d, m, s, hemi)
         st.session_state.lon_last_changed = 'none'
 
-    # UI for Longitude
-    lon_col1, lon_col2, lon_col3 = st.columns([2.5, 1, 2.5])
+    lon_col1, lon_col2, lon_col3 = st.columns([2, 1, 2])
     with lon_col1:
-        st.number_input("Decimal Longitude", key='lon_dd', format="%.8f", on_change=lon_dd_changed)
+        st.number_input("Decimal Longitude", key='lon_dd_val', format="%.8f", on_change=lon_dd_val_changed)
     with lon_col2:
-        # This container uses Flexbox to perfectly center the arrow.
+        # This container uses Flexbox for precise vertical alignment.
         st.markdown("""
-            <div style="display: flex; align-items: center; justify-content: center; height: 89px;">
+            <div style="display: flex; align-items: center; justify-content: center; height: 74px;">
                 <p style="font-size: 3em; font-weight: bold; margin: 0; padding: 0;">⇌</p>
             </div>
         """, unsafe_allow_html=True)
     with lon_col3:
-        hemi_col, d_col, m_col, s_col = st.columns([0.8, 1, 1, 1.2])
-        with hemi_col: st.radio(" ", options=["E", "W"], key='lon_hemi', on_change=lon_dms_changed, horizontal=True)
-        with d_col: st.number_input("Deg (°)", key='lon_d', min_value=0, step=1, on_change=lon_dms_changed)
-        with m_col: st.number_input("Min (')", key='lon_m', min_value=0, step=1, on_change=lon_dms_changed)
-        with s_col: st.number_input("Sec (\")", key='lon_s', min_value=0.0, format="%.4f", on_change=lon_dms_changed)
+        st.text_input("DMS Longitude", key='lon_dms_str', on_change=lon_dms_str_changed,
+                      placeholder="e.g., -98 11 22.5 or 98 11 22.5 W")
 
 st.markdown("---")
 st.markdown("Disclaimer: This tool provides general guidance. For precise official coordinates, always consult with a "
