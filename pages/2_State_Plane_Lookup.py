@@ -13,7 +13,7 @@ from src.shared_ui import display_header
 # --- Streamlit App Layout ---
 st.set_page_config(
     page_title="Inrock Guidance - SPCS83 Lookup",
-    page_icon="🌍",
+    page_icon="../rss/inrock_icon.png",
     layout="wide"
 )
 

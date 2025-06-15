@@ -13,7 +13,7 @@ from src.shared_ui import display_header
 # Open Streamlit in Wide Mode
 st.set_page_config( layout="wide",
                     page_title="Inrock Survey Export Transformer",
-                    page_icon="🌍")
+                    page_icon="../rss/inrock_icon.png")
 
 display_header()
 

@@ -5,7 +5,7 @@ from src.shared_ui import display_header
 # --- Page Configuration ---
 st.set_page_config(
     page_title="Inrock Navigator",
-    page_icon="rss/inrock_logo.png",
+    page_icon="rss/inrock_icon.png",
     layout="wide"
 )
 
