@@ -235,8 +235,6 @@ with tab_point_converter:
     st.header("Live Bidirectional Point Converter")
 
     # --- Create Formatted List for Dropdown ---
-    # We iterate through the zones dictionary to create the "FIPS - Name" format.
-    # We sort it by the plain text name (the key) to keep the list organized alphabetically.
     formatted_zone_options = [
         f"{fips} - {name}" for name, fips in sorted(spsc83_zones.items())
     ]
@@ -247,7 +245,6 @@ with tab_point_converter:
         st.session_state.lon = -95.43294457550921  # Pearland, TX
         st.session_state.easting = 0.0
         st.session_state.northing = 0.0
-        # The key must now match the formatted string exactly
         st.session_state.zone_display = "4204 - Texas South Central (USft)"
         st.session_state.last_changed = 'wgs'
         st.session_state.init_done = True
@@ -267,11 +264,7 @@ with tab_point_converter:
 
 
     # --- Main Conversion Logic ---
-    # 1. Parse the formatted string from the dropdown to get the plain text name
-    # The format is "FIPS - Name", so we split it and take the second part.
     if 'zone_display' in st.session_state and st.session_state.zone_display:
-        # 1. Parse the formatted string from the dropdown to get the plain text name
-        # The format is "FIPS - Name", so we split it and take the second part.
         plain_text_name = st.session_state.zone_display.split(' - ', 1)[1]
 
         # 2. Use the plain text name to look up FIPS and then EPSG, as before.
@@ -308,8 +301,7 @@ with tab_point_converter:
             key='zone_display',
             on_change=zone_changed,
         )
-        # This combination of a div with padding and a p tag without margins
-        # gives us precise control over the vertical alignment.
+
         st.markdown(
             """
             <div style="padding-top: 0.5rem; text-align: center;">
@@ -324,11 +316,10 @@ with tab_point_converter:
         st.number_input("Easting", key='easting', format="%.4f", on_change=spcs_changed)
         st.number_input("Northing", key='northing', format="%.4f", on_change=spcs_changed)
 
-# --- TAB 4: DD <-> DMS Converter ---
+
 with tab_dms_converter:
     st.header("Live Decimal Degree <-> DMS Converter")
 
-    # --- LATITUDE CONVERTER ---
     st.subheader("Latitude Conversion")
 
     if 'lat_dms_init' not in st.session_state:
@@ -379,7 +370,6 @@ with tab_dms_converter:
 
     st.divider()
 
-    # --- LONGITUDE CONVERTER ---
     st.subheader("Longitude Conversion")
 
     if 'lon_dms_init' not in st.session_state:
