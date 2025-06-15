@@ -186,7 +186,6 @@ with tab_county:
     else:
         st.info("Please select a state.")
 
-# Replace the entire 'with tab_lat_lon:' block with this:
 with tab_lat_lon:
     st.header("Lookup by Latitude/Longitude")
 
@@ -232,7 +231,6 @@ with tab_lat_lon:
             else:
                 st.warning("Please enter valid Latitude and Longitude.")
 
-# --- TAB 3: Interactive Point Converter (New Combined Tab) ---
 with tab_point_converter:
     st.header("Live Bidirectional Point Converter")
 
@@ -245,8 +243,8 @@ with tab_point_converter:
 
     # --- State Management ---
     if 'init_done' not in st.session_state:
-        st.session_state.lat = 29.5573  # Pearland, TX
-        st.session_state.lon = -95.2835  # Pearland, TX
+        st.session_state.lat = 29.540680396105017  # Pearland, TX
+        st.session_state.lon = -95.43294457550921  # Pearland, TX
         st.session_state.easting = 0.0
         st.session_state.northing = 0.0
         # The key must now match the formatted string exactly
@@ -301,18 +299,25 @@ with tab_point_converter:
         st.number_input("Latitude", key='lat', format="%.8f", on_change=wgs_changed)
         st.number_input("Longitude", key='lon', format="%.8f", on_change=wgs_changed)
 
-        # The UI for the middle column is now self-contained
-        with col2:
-            st.subheader("SPCS83 Zone")
-            st.selectbox(
-                "Select Zone:",
-                options=formatted_zone_options,
-                key='zone_display',
-                on_change=zone_changed,
-            )
-            # Use st.write with <br> to add vertical space
-            st.write("<br><br>", unsafe_allow_html=True)
-            st.markdown("<h1 style='text-align: center; font-size: 4em;'>⇌</h1>", unsafe_allow_html=True)
+    # The UI for the middle column is now self-contained
+    with col2:
+        st.subheader("SPCS83 Zone")
+        st.selectbox(
+            "Select Zone:",
+            options=formatted_zone_options,
+            key='zone_display',
+            on_change=zone_changed,
+        )
+        # This combination of a div with padding and a p tag without margins
+        # gives us precise control over the vertical alignment.
+        st.markdown(
+            """
+            <div style="padding-top: 0.5rem; text-align: center;">
+                <p style="font-size: 3em; font-weight: bold; margin: 0;">⇌</p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     with col3:
         st.subheader("SPCS83 (USft)")
