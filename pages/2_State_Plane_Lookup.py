@@ -1,13 +1,38 @@
 import streamlit as st
 import math
 import re
-import pandas as pd
-import json
-import requests
+from datetime import date
+import geopandas as gpd
+from pathlib import Path
 from shapely.geometry import Point, shape
 from pyproj import CRS, Transformer
 from pyproj.exceptions import ProjError
 from src.constants import spcs83_to_epsg, county_spcs_mapping, spsc83_zones
+from src.shared_ui import display_header
+
+# --- Streamlit App Layout ---
+st.set_page_config(
+    page_title="Inrock Guidance - SPCS83 Lookup",
+    page_icon="🌍",
+    layout="wide"
+)
+
+display_header()
+
+# --- Data Loading Function with Caching ---
+@st.cache_data
+def load_data(shapefile_path):
+    """
+    Loads the shapefile into a GeoDataFrame, caches it, and re-projects to WGS84.
+    """
+    try:
+        gdf = gpd.read_file(shapefile_path)
+        # Convert the GeoDataFrame's CRS to WGS84 (EPSG:4326) to match lat/lon input
+        gdf = gdf.to_crs("EPSG:4326")
+        return gdf
+    except Exception as e:
+        st.error(f"Error loading shapefile: {e}")
+        return None
 
 # --- Function to lookup SPCS by Lat/Lon (Requires actual spatial data) ---
 # This function is conceptual and would require a GeoDataFrame
@@ -104,19 +129,16 @@ def dms_to_dd(degrees, minutes, seconds, hemisphere=''):
         return -dd
     return dd
 
-# --- Streamlit App Layout ---
-# st.set_page_config(layout="wide")
-# st.title("State Plane Coordinate System Lookup")
+# Add this code to define the path and load the data
+# Construct the full path to the shapefile
+SHAPEFILE = Path(__file__).parent.parent / "shapefiles" / "spcs" / "spcs83_zones.shp"
 
-st.set_page_config(
-    page_title="Inrock Guidance - SPCS83 Lookup",
-    page_icon="🌍",
-    layout="centered" # or "wide" if you prefer
-)
+# Load the shapefile data using the cached function
+stateplane_gdf = load_data(SHAPEFILE)
 
 st.title("SPCS83 Lookup")
 st.write("Version 0.4 - Feature Expansion")
-st.write("Page Updated: June 11th, 2025")
+st.write(f"Page Updated: {date.today().strftime('%B %d, %Y')}")
 
 st.write(
     """
@@ -132,9 +154,10 @@ tab_county, tab_lat_lon, tab_point_converter, tab_dms_converter = st.tabs([
     "DD <-> DMS Converter"
 ])
 
+st.title("**Phase: Beta :: Report Bugs on Discovery**")
+
 with tab_county:
     st.header("Lookup by County")
-    st.title("**Phase: Beta :: Report Bugs on Discovery**")
     selected_state = st.selectbox(
         "Select State:",
         options=list(county_spcs_mapping.keys()),
@@ -163,30 +186,51 @@ with tab_county:
     else:
         st.info("Please select a state.")
 
+# Replace the entire 'with tab_lat_lon:' block with this:
 with tab_lat_lon:
     st.header("Lookup by Latitude/Longitude")
-    st.title("**Phase: Alpha :: Do not trust output**")
-    lat_input = st.number_input("Enter Latitude:", min_value=-90.0, max_value=90.0, value=30.0, format="%.6f", key="lat_input")
-    lon_input = st.number_input("Enter Longitude:", min_value=-180.0, max_value=180.0, value=-95.0, format="%.6f", key="lon_input")
 
-    if st.button("Lookup SPCS Zone", key="lat_lon_lookup_button"):
-        if lat_input is not None and lon_input is not None:
-            st.subheader("Result:")
-            # Call the lookup function (currently a placeholder)
-            # In a real app, 'geo_data' would be your loaded GeoDataFrame
-            zone_name, zone_fips = lookup_spcs_by_lat_lon(lat_input, lon_input, geo_data=None)
+    # Check if the shapefile was loaded successfully
+    if stateplane_gdf is None:
+        st.error(
+            "State Plane zones shapefile could not be loaded. Please check the file path: 'shapefiles/spcs/spcs83_zones.shp'")
+    else:
+        lat_input = st.number_input("Enter Latitude:", min_value=-90.0, max_value=90.0, value=29.7604, format="%.6f",
+                                    key="lat_input")
+        lon_input = st.number_input("Enter Longitude:", min_value=-180.0, max_value=180.0, value=-95.3698,
+                                    format="%.6f", key="lon_input")
 
-            if zone_name != "Not Found (Placeholder)":
-                st.success(f"**Zone Name:** {zone_name}")
-                st.success(f"**Zone FIPS:** {zone_fips}")
-                if zone_fips in spcs83_to_epsg:
-                    st.info(f"**Corresponding EPSG (USft):** EPSG:{spcs83_to_epsg[zone_fips]}")
+        if st.button("Lookup SPCS Zone", key="lat_lon_lookup_button"):
+            if lat_input is not None and lon_input is not None:
+                # Create a Shapely Point from user input
+                user_point = Point(lon_input, lat_input)
+
+                # Find the polygon that contains the user's point
+                containing_zone = stateplane_gdf[stateplane_gdf.contains(user_point)]
+
+                st.subheader("Result:")
+
+                if not containing_zone.empty:
+                    # Extract the first (and should be only) result
+                    zone_data = containing_zone.iloc[0]
+
+                    # !!! IMPORTANT: Replace 'NAME' and 'FIPS' with your actual column names !!!
+                    zone_name = zone_data['ZONENAME']
+                    zone_fips = zone_data['FIPSZONE']
+
+                    st.success(f"**Zone Name:** {zone_name}")
+                    st.success(f"**Zone FIPS:** {zone_fips}")
+
+                    # Convert fips to string for dictionary lookup to be safe
+                    if str(zone_fips) in spcs83_to_epsg:
+                        st.info(f"**Corresponding EPSG (USft):** EPSG:{spcs83_to_epsg[str(zone_fips)]}")
+                    else:
+                        st.warning("EPSG code not found in constants for this FIPS.")
                 else:
-                    st.warning("EPSG code not found in constants for this FIPS.")
+                    st.warning(
+                        "Could not determine SPCS Zone. The provided coordinates may be outside the covered area.")
             else:
-                st.warning("Could not determine SPCS Zone for the given coordinates (placeholder data used).")
-        else:
-            st.warning("Please enter valid Latitude and Longitude.")
+                st.warning("Please enter valid Latitude and Longitude.")
 
 # --- TAB 3: Interactive Point Converter (New Combined Tab) ---
 with tab_point_converter:
@@ -210,7 +254,6 @@ with tab_point_converter:
         st.session_state.last_changed = 'wgs'
         st.session_state.init_done = True
 
-
     # --- Callback Functions ---
     def wgs_changed():
         st.session_state.last_changed = 'wgs'
@@ -226,27 +269,29 @@ with tab_point_converter:
 
 
     # --- Main Conversion Logic ---
-
     # 1. Parse the formatted string from the dropdown to get the plain text name
     # The format is "FIPS - Name", so we split it and take the second part.
-    plain_text_name = st.session_state.zone_display.split(' - ', 1)[1]
+    if 'zone_display' in st.session_state and st.session_state.zone_display:
+        # 1. Parse the formatted string from the dropdown to get the plain text name
+        # The format is "FIPS - Name", so we split it and take the second part.
+        plain_text_name = st.session_state.zone_display.split(' - ', 1)[1]
 
-    # 2. Use the plain text name to look up FIPS and then EPSG, as before.
-    source_fips = spsc83_zones.get(plain_text_name)
-    source_epsg = spcs83_to_epsg.get(source_fips) if source_fips else None
+        # 2. Use the plain text name to look up FIPS and then EPSG, as before.
+        source_fips = spsc83_zones.get(plain_text_name)
+        source_epsg = spcs83_to_epsg.get(source_fips) if source_fips else None
 
-    if source_epsg:
-        if st.session_state.last_changed == 'wgs':
-            easting, northing = convert_wgs_to_spcs(st.session_state.lat, st.session_state.lon, source_epsg)
-            st.session_state.easting = easting
-            st.session_state.northing = northing
-            st.session_state.last_changed = 'none'
+        if source_epsg:
+            if st.session_state.last_changed == 'wgs':
+                easting, northing = convert_wgs_to_spcs(st.session_state.lat, st.session_state.lon, source_epsg)
+                st.session_state.easting = easting
+                st.session_state.northing = northing
+                st.session_state.last_changed = 'none'
 
-        elif st.session_state.last_changed == 'spcs':
-            lon, lat = convert_spcs_to_wgs(st.session_state.easting, st.session_state.northing, source_epsg)
-            st.session_state.lon = lon
-            st.session_state.lat = lat
-            st.session_state.last_changed = 'none'
+            elif st.session_state.last_changed == 'spcs':
+                lon, lat = convert_spcs_to_wgs(st.session_state.easting, st.session_state.northing, source_epsg)
+                st.session_state.lon = lon
+                st.session_state.lat = lat
+                st.session_state.last_changed = 'none'
 
     # --- UI Layout ---
     col1, col2, col3 = st.columns([2, 2, 2])

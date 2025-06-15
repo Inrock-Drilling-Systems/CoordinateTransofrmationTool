@@ -8,11 +8,14 @@ from src.constants import spsc83_zones, spcs83_to_epsg, county_spcs_mapping
 from streamlit.components.v1 import html
 from src.generate_kmz import generate_kmz
 from src.pretty_dataframe import correct_output
+from src.shared_ui import display_header
 
 # Open Streamlit in Wide Mode
 st.set_page_config( layout="wide",
-                    page_title="Inrock Guidance - Survey Export Trasnformer",
+                    page_title="Inrock Survey Export Transformer",
                     page_icon="🌍")
+
+display_header()
 
 # Title
 st.title("3D Coordinate Transformation Tool")
