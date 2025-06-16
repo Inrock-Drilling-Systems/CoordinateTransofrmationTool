@@ -16,6 +16,9 @@ COPY . .
 # Expose the port Streamlit runs on
 EXPOSE 8501
 
+# Install curl for the healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Define a healthcheck to ensure the app is running
 HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
